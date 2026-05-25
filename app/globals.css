@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   LUXAFOIR — DESIGN SYSTEM (WHITE & CLEAN — PERMANENT)
+   White background, black text, muted gold accent.
+   Only the Footer and the Announcement bar are dark/gold.
+   ═══════════════════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f7f5;
+  --color-bg-tertiary: #f2efe9;
+
+  /* Text */
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #3a3a3a;
+  --color-text-muted: #6b6b6b;
+
+  /* Borders */
+  --color-border: #e5e2dc;
+  --color-border-strong: #c8c5bf;
+
+  /* Accent */
+  --color-gold: #9b8b5c;
+  --color-gold-hover: #7a6d48;
+
+  /* Dark — used ONLY for Footer + primary buttons + hero overlay */
+  --color-obsidian: #0a0a0a;
+
+  /* ── Existing token names mapped to the light palette ── */
+  --color-void: #f8f7f5; /* secondary surface */
+  --color-charcoal: #f2efe9; /* tertiary surface / image placeholder */
+  --color-ash: #e5e2dc; /* borders, dividers */
+  --color-ivory: #0a0a0a; /* PRIMARY text (dark) */
+  --color-mist: #3a3a3a; /* secondary text */
+  --color-smoke: #6b6b6b; /* muted text */
+  --color-white: #ffffff;
+  --color-gold-dim: #7a6d48;
+  --color-gold-bright: #b89b6e;
+
+  /* Semantic */
+  --color-error: #c0392b;
+  --color-success: #27ae60;
+  --color-sold-out: #4a4a4a;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 150ms;
+  --dur-normal: 300ms;
+  --dur-slow: 300ms;
+  --dur-cinematic: 600ms;
+
+  /* Layout */
+  --radius: 0px;
+  --announcement-h: 36px;
+  --nav-h: 72px;
+  --nav-h-mobile: 60px;
+}
+
+/* ═══════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════ */
+@layer base {
+  * {
+    @apply border-ash;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    @apply font-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-obsidian);
+    color: #ffffff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  /* Custom scrollbar — light */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border: 2px solid var(--color-bg-secondary);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .label {
+    @apply font-body text-label uppercase;
+  }
+
+  .px-site {
+    @apply px-5 md:px-10 lg:px-16;
+  }
+
+  /* Animated underline for nav links */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    transition: width var(--dur-normal) var(--ease-out-expo);
+  }
+  .link-underline:hover::after,
+  .link-underline[data-active="true"]::after {
+    width: 100%;
+  }
+
+  /* CSS-only scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.5s var(--ease-out-expo),
+      transform 0.5s var(--ease-out-expo);
+    will-change: opacity, transform;
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-secondary) 25%,
+      var(--color-bg-tertiary) 50%,
+      var(--color-bg-secondary) 75%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,112 @@
+// LUXAFOIR — Prisma schema
+// Database: Supabase PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id           String           @id @default(cuid())
+  name         String
+  slug         String           @unique
+  description  String
+  price        Float
+  comparePrice Float? // Harga coret (sale)
+  images       String[] // Array URL dari Supabase Storage
+  category     Category         @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  collection   Collection?      @relation(fields: [collectionId], references: [id])
+  collectionId String?
+  variants     ProductVariant[]
+  tags         String[]
+  isFeatured   Boolean          @default(false)
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+
+  @@index([categoryId])
+  @@index([collectionId])
+  @@index([isFeatured])
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  size      String // XS, S, M, L, XL, XXL atau custom
+  stock     Int     @default(0)
+  sku       String? @unique
+
+  @@index([productId])
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  image    String?
+  products Product[]
+}
+
+model Collection {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  products    Product[]
+  isActive    Boolean   @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String?
+  email           String
+  items           OrderItem[]
+  total           Float
+  status          OrderStatus @default(PENDING)
+  paymentId       String? // Midtrans transaction ID
+  shippingAddress Json
+  createdAt       DateTime    @default(now())
+
+  @@index([userId])
+  @@index([email])
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  productId String
+  variantId String
+  name      String
+  size      String
+  price     Float
+  quantity  Int
+  image     String
+
+  @@index([orderId])
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
