@@ -29,13 +29,14 @@ export const FOOTER_LINKS = {
     { label: "FAQ", href: "/faq" },
     { label: "Shipping Policy", href: "/shipping" },
     { label: "Return Policy", href: "/returns" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms" },
   ],
 } as const;
 
 export const SOCIAL_LINKS = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "TikTok", href: "https://tiktok.com" },
-  { label: "Pinterest", href: "https://pinterest.com" },
+  { label: "Instagram", href: "https://instagram.com/luxafoir" },
+  { label: "TikTok", href: "https://tiktok.com/@luxafoir" },
 ] as const;
 
 /** Standard apparel size order for sorting selectors. */
