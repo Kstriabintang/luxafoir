@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
  * - Otherwise resolve optimistically (static build with no backend yet).
  *
  * On GitHub Pages there is no Node server, so this runs entirely in the browser.
- * The Xendit/transactional pieces will live in Supabase Edge Functions later.
+ * Transactional email will move to Supabase Edge Functions later.
  */
 export async function subscribeEmail(email: string): Promise<void> {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

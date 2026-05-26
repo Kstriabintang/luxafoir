@@ -7,13 +7,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronLeft, Lock, Pencil } from "lucide-react";
+import { Check, ChevronLeft, Pencil } from "lucide-react";
 import { cn, formatIDR } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ImageWithBlur } from "@/components/ui/ImageWithBlur";
 import { useCart } from "@/hooks/useCart";
 import { shippingSchema, PROVINCES, PROMO_CODES, type ShippingFormValues } from "@/lib/validations";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
+import { PakasirPayment } from "./PakasirPayment";
 
 const STEPS = ["Shipping", "Review", "Payment"] as const;
 const JAVA = ["DKI Jakarta", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Banten", "DI Yogyakarta"];
@@ -32,7 +33,7 @@ export function CheckoutView() {
   const [shipping, setShipping] = useState<ShippingFormValues | null>(null);
   const [promoInput, setPromoInput] = useState("");
   const [promo, setPromo] = useState<{ code: string; amount: number; label: string } | null>(null);
-  const [processing, setProcessing] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   // Redirect to cart if empty (after hydration).
   useEffect(() => {
@@ -72,19 +73,20 @@ export function CheckoutView() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const placeOrder = async () => {
-    if (!shipping) return;
-    setProcessing(true);
-    // Static build: the payment gateway (Xendit) will be wired via a Supabase
-    // Edge Function later. For now we create a client-side order reference and
-    // confirm — enough to demo the full flow on GitHub Pages.
-    const orderId = `LUX-${Date.now().toString(36).toUpperCase()}-${Math.random()
+  // Move to the payment step with a fresh order reference for Pakasir.
+  const startPayment = () => {
+    const id = `LUX${Date.now().toString(36).toUpperCase()}${Math.random()
       .toString(36)
-      .slice(2, 6)
+      .slice(2, 5)
       .toUpperCase()}`;
-    await new Promise((r) => setTimeout(r, 600));
+    setOrderId(id);
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePaid = () => {
+    if (!orderId) return;
     clear();
-    toast.success("Order placed");
     router.push(`/checkout/success?order_id=${encodeURIComponent(orderId)}`);
   };
 
@@ -255,15 +257,15 @@ export function CheckoutView() {
                   <Button variant="dark" size="lg" onClick={() => setStep(0)}>
                     <ChevronLeft className="size-4" /> Back
                   </Button>
-                  <Button variant="solid" size="lg" className="flex-1" onClick={() => setStep(2)}>
+                  <Button variant="solid" size="lg" className="flex-1" onClick={startPayment}>
                     Continue to Payment
                   </Button>
                 </div>
               </motion.div>
             )}
 
-            {/* STEP 3 — PAYMENT */}
-            {step === 2 && (
+            {/* STEP 3 — PAYMENT (Pakasir, in-page) */}
+            {step === 2 && orderId && (
               <motion.div
                 key="payment"
                 initial={{ opacity: 0, x: 20 }}
@@ -272,31 +274,12 @@ export function CheckoutView() {
                 className="flex flex-col gap-6"
               >
                 <h2 className="text-label uppercase tracking-label text-gold">Payment</h2>
-                <div className="flex items-start gap-3 border border-ash p-6">
-                  <Lock className="mt-0.5 size-5 shrink-0 text-gold" strokeWidth={1.5} />
-                  <div>
-                    <p className="text-body text-ivory">Secure payment via Midtrans</p>
-                    <p className="mt-1.5 text-caption text-smoke">
-                      Pay with GoPay, OVO, QRIS, bank transfer, or card. You&apos;ll complete
-                      payment in a secure Midtrans window.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <Button variant="dark" size="lg" onClick={() => setStep(1)}>
-                    <ChevronLeft className="size-4" /> Back
-                  </Button>
-                  <Button
-                    variant="solid"
-                    size="lg"
-                    loading={processing}
-                    onClick={placeOrder}
-                    className="flex-1"
-                  >
-                    Pay {formatIDR(total)}
-                  </Button>
-                </div>
+                <PakasirPayment
+                  orderId={orderId}
+                  amount={Math.round(total)}
+                  onPaid={handlePaid}
+                  onBack={() => setStep(1)}
+                />
               </motion.div>
             )}
           </AnimatePresence>

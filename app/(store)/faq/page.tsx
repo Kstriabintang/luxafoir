@@ -27,7 +27,7 @@ const FAQS = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "We accept GoPay, OVO, QRIS, bank transfer, and major cards through our secure Midtrans checkout.",
+    a: "We accept QRIS and Virtual Account transfers (BNI, BRI, CIMB Niaga, Permata, Maybank) through our secure Pakasir checkout — the QR code and VA number appear right on the page.",
   },
   {
     q: "Can I return or exchange an item?",

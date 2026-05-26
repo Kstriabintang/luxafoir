@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 import { useTranslation } from "@/components/i18n/LanguageProvider";
 
-const PAYMENTS = ["VISA", "Mastercard", "GoPay", "OVO", "QRIS", "BCA"];
+const PAYMENTS = ["QRIS", "BNI", "BRI", "CIMB", "Permata", "Maybank"];
 
 type FooterLink = { label: string; tKey: string; href: string };
 

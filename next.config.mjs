@@ -1,20 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static HTML export for GitHub Pages (no Node server).
-  // Server-side bits (DB, Xendit payment) live on Supabase later.
-  output: "export",
+  // Server-rendered on Vercel (was a static export for GitHub Pages). The
+  // server runtime is what lets the Pakasir API routes keep the API key secret.
   reactStrictMode: true,
-  trailingSlash: true,
   images: {
-    // GitHub Pages has no image optimizer — serve images as-is.
+    // Product imagery is self-hosted in /public; no external optimizer needed.
     unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "*.supabase.co" },
-      { protocol: "https", hostname: "images.pexels.com" },
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "plus.unsplash.com" },
-      { protocol: "https", hostname: "picsum.photos" },
-      { protocol: "https", hostname: "fastly.picsum.photos" },
     ],
   },
 };
