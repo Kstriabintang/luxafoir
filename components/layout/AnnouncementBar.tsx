@@ -33,7 +33,7 @@ export function AnnouncementBar() {
           animate={{ height: "var(--announcement-h)" }}
           exit={{ height: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-50 overflow-hidden bg-gold text-obsidian"
+          className="relative z-50 overflow-hidden bg-[#0A0A0A] text-white"
         >
           <div className="relative flex h-[var(--announcement-h)] items-center">
             {/* Desktop: centered static */}
@@ -65,7 +65,7 @@ export function AnnouncementBar() {
             <button
               onClick={dismiss}
               aria-label="Dismiss announcement"
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-obsidian/70 transition-colors hover:text-obsidian"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-white/70 transition-colors hover:text-white"
             >
               <X className="size-3.5" strokeWidth={2.5} />
             </button>
