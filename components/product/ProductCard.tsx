@@ -41,7 +41,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
       )}
     >
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden border border-transparent bg-[#F2EFE9] transition-all duration-300 group-hover:border-[#E5E2DC] group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+        <div className="relative aspect-[3/4] overflow-hidden border border-transparent bg-[#F6F5F3] transition-all duration-300 group-hover:border-[#E5E2DC] group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
           {/* Primary image */}
           <ImageWithBlur
             src={product.images[0]}

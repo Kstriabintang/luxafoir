@@ -1,10 +1,11 @@
 import type { Product, Category, Collection } from "@/types/product";
 
 /**
- * Mock catalog — focused on BOXY / OVERSIZED tees only. The GARMENTS are
- * black & white colorways (the products themselves), but the photography is
- * full color. Imagery = free-to-use Pexels photos (verified 200, hotlink-legal).
- * Replace these getters with Prisma/Supabase queries once the DB is live.
+ * Mock catalog — PREMIUM BOXY / OVERSIZED tshirts only. Garments are strictly
+ * BLACK or WHITE colorways (no other colors). Product imagery = clean product
+ * MOCKUPS (no models — flat lay / hanger), full-color photos. Hero uses model
+ * shots (see HeroSection). All Pexels IDs verified 200 + visually confirmed
+ * black/white garments. Replace getters with Prisma/Supabase once the DB is live.
  */
 
 // Pexels hotlink (free commercial use). Portrait crop by default for cards.
@@ -14,7 +15,7 @@ export const px = (id: number, w = 900, h = 1200) =>
 const pair = (front: number, back: number) => [px(front), px(back)];
 
 export const CATEGORIES: Category[] = [
-  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: px(28758241) },
+  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: px(8532616) },
 ];
 
 export const COLLECTIONS: Collection[] = [
@@ -22,7 +23,7 @@ export const COLLECTIONS: Collection[] = [
     id: "col-essentials",
     name: "Essentials",
     slug: "distinct-001",
-    description: "Boxy tee polos. Hitam. Putih. Dasar dari semua outfit skena.",
+    description: "Boxy tshirt premium polos. Hitam atau putih. Dasar yang tidak pernah salah.",
     image: px(28758240, 1200, 1500),
     isActive: true,
     startDate: null,
@@ -32,7 +33,7 @@ export const COLLECTIONS: Collection[] = [
     id: "col-heavyweight",
     name: "Heavyweight",
     slug: "obsidian-hour",
-    description: "Tee 240gsm dengan sablon premium. Boxy, berat, terasa ada di badan.",
+    description: "Boxy 240–280gsm. Berat, jatuh sempurna, sedikit cropped. Terasa ada di badan.",
     image: px(28338020, 1200, 1500),
     isActive: true,
     startDate: null,
@@ -68,104 +69,104 @@ interface Seed {
 const TEE_SIZES = ["S", "M", "L", "XL"];
 const TEE_SIZES_XL = ["S", "M", "L", "XL", "XXL"];
 
-// All BOXY TEES — black & white only. Pexels IDs verified to return 200.
+// PREMIUM BOXY TSHIRTS — black & white only. Pexels IDs verified (product mockups).
 const SEEDS: Seed[] = [
-  // ── ESSENTIALS · boxy tee polos ──────────────────────────────
+  // ── ESSENTIALS · boxy premium polos ──────────────────────────
   {
-    name: "VOID Boxy Tee / Black",
-    slug: "void-boxy-tee-black",
-    price: 275_000,
+    name: "VOID Boxy Tshirt / Black",
+    slug: "void-boxy-tshirt-black",
+    price: 289_000,
     collectionId: "col-essentials",
     sizes: TEE_SIZES_XL,
     tags: ["essentials", "boxy", "cotton"],
     isFeatured: true,
-    images: pair(28758241, 9558567),
-    desc: "Bukan kaos biasa. Potongan boxy oversized dengan dropped shoulder yang bikin bahu kamu drop dengan sendirinya. Cotton 240gsm yang berat dan jatuh rapi di badan. Hitam yang tidak pudar walau dicuci berkali-kali. Ini fondasi lemari kamu.",
-    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder, boxy fit. Pre-shrunk biar nggak ngaret setelah dicuci.",
+    images: pair(8532616, 8532638),
+    desc: "Boxy tshirt premium dengan potongan oversized yang sedikit cropped — jatuh pas di pinggang, bahu drop dengan sendirinya. Cotton combed 240gsm yang berat dan rapi. Hitam pekat yang tidak pudar walau dicuci berkali-kali. Bukan kaos biasa, ini staple premium kamu.",
+    material: "100% cotton combed 240gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Pre-shrunk, jahitan rapi, kerah anti-melar.",
   },
   {
-    name: "SPECTER Boxy Tee / Black",
-    slug: "specter-boxy-tee-black",
+    name: "PHANTOM Boxy Tshirt / White",
+    slug: "phantom-boxy-tshirt-white",
+    price: 289_000,
+    collectionId: "col-essentials",
+    sizes: TEE_SIZES_XL,
+    tags: ["essentials", "boxy", "cotton"],
+    isFeatured: true,
+    images: pair(12025472, 11671964),
+    desc: "Versi putih bersih dari VOID. Boxy oversized, sedikit cropped, badan 240gsm yang nahan bentuk. Putih solid yang anti-transparan walau bahannya tebal. Premium yang bikin kamu pede pakai tiap hari.",
+    material: "100% cotton combed 240gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Putih solid, anti-transparan.",
+  },
+  {
+    name: "STAPLE Boxy Tshirt / Black",
+    slug: "staple-boxy-tshirt-black",
     price: 269_000,
     collectionId: "col-essentials",
     sizes: TEE_SIZES,
     tags: ["essentials", "boxy", "cotton"],
-    isFeatured: true,
-    images: pair(9558588, 28758242),
-    desc: "Boxy fit yang lebih cropped dikit, pas buat yang suka kelihatan body badannya. Bahan 230gsm yang adem tapi tetap nahan bentuk. Hitam solid, jahitan rapi, kerah yang nggak gampang melar. Simpel tapi niat.",
-    material: "100% cotton combed 230gsm. Boxy cropped fit, dropped shoulder, jahitan rantai di kerah.",
+    images: pair(8532611, 18186105),
+    desc: "Boxy tshirt paling dasar yang wajib punya beberapa. Oversized, sedikit cropped, gampang dipaduin sama celana apa aja. Combed lembut di kulit, jahitan premium. Murah meriah tapi terasa mahal.",
+    material: "100% cotton combed 230gsm. Boxy oversized fit, sedikit cropped, dropped shoulder.",
   },
   {
-    name: "STAPLE Boxy Tee / Black",
-    slug: "staple-boxy-tee-black",
-    price: 259_000,
+    name: "STATIC Boxy Tshirt / White",
+    slug: "static-boxy-tshirt-white",
+    price: 269_000,
     collectionId: "col-essentials",
     sizes: TEE_SIZES,
     tags: ["essentials", "boxy", "cotton"],
-    images: pair(28758240, 28758239),
-    desc: "Boxy tee paling dasar yang wajib punya minimal tiga. Oversized, jatuh longgar, gampang dipaduin sama celana apa aja. Bahan combed yang lembut di kulit. Murah meriah tapi nggak murahan.",
-    material: "100% cotton combed 240gsm. Oversized boxy fit, dropped shoulder.",
-  },
-  {
-    name: "PHANTOM Boxy Tee / White",
-    slug: "phantom-boxy-tee-white",
-    price: 275_000,
-    collectionId: "col-essentials",
-    sizes: TEE_SIZES_XL,
-    tags: ["essentials", "boxy", "cotton"],
-    isFeatured: true,
-    images: [px(20736690)],
-    desc: "Sama berat, sama boxy-nya kayak VOID — tapi putih bersih. Kaos polos yang tidak polos-polos amat. 240gsm yang nahan bentuk, kerah yang nggak melar. Putih yang berani kotor karena kualitasnya bikin kamu pede pakai tiap hari.",
-    material: "100% cotton combed 240gsm. Boxy fit, dropped shoulder. Putih solid, anti-transparan walau tebal.",
+    images: pair(11671964, 12025472),
+    desc: "Putih bersih, boxy, sedikit cropped. Dasar yang dipakai siapa aja dan tetap kelihatan rapi. Bahan combed yang adem dan jatuh berat. Premium tanpa banyak omong.",
+    material: "100% cotton combed 230gsm. Boxy oversized fit, sedikit cropped. Putih solid.",
   },
 
-  // ── HEAVYWEIGHT · boxy tee sablon ────────────────────────────
+  // ── HEAVYWEIGHT · boxy 240–280gsm ────────────────────────────
   {
-    name: "CORRUPT Graphic Tee / Black",
-    slug: "corrupt-graphic-tee-black",
-    price: 315_000,
-    comparePrice: 385_000,
-    collectionId: "col-heavyweight",
-    sizes: TEE_SIZES,
-    tags: ["new", "sale", "graphic", "heavyweight"],
-    isFeatured: true,
-    images: pair(36942017, 36942018),
-    desc: "Boxy oversized dengan premium screen print yang nggak retak setengah mati setelah cuci ketiga. Tinta plastisol tebal, sablon rapi, badan 240gsm. Buat yang mau statement tapi tetap clean. Stok grafis ini terbatas.",
-    material: "100% cotton combed 240gsm. Sablon plastisol premium high-density. Boxy fit, dropped shoulder.",
-  },
-  {
-    name: "FRAGMENT Print Tee / Black",
-    slug: "fragment-print-tee-black",
-    price: 335_000,
-    collectionId: "col-heavyweight",
-    sizes: TEE_SIZES,
-    tags: ["new", "graphic", "heavyweight"],
-    images: pair(36942018, 36942017),
-    desc: "Sablon teks bold yang gede di dada, tipe yang langsung kebaca dari jauh. Boxy, berat, dan kelihatan kayak udah kamu pakai bertahun-tahun. Buat yang suka grafis tapi anti norak.",
-    material: "100% cotton combed 240gsm. Sablon plastisol high-density. Boxy oversized fit.",
-  },
-  {
-    name: "STATIC Graphic Tee / White",
-    slug: "static-graphic-tee-white",
-    price: 325_000,
-    collectionId: "col-heavyweight",
-    sizes: TEE_SIZES,
-    tags: ["new", "graphic", "heavyweight"],
-    images: pair(36908588, 20736690),
-    desc: "Versi putih dari seri sablon kami. Kontras teks hitam di bahan putih bersih, boxy oversized yang jatuh berat. Statement tanpa banyak omong. Cocok buat yang berani pakai putih.",
-    material: "100% cotton combed 240gsm. Sablon plastisol. Boxy fit, putih solid.",
-  },
-  {
-    name: "RIOT Boxy Tee / Black",
-    slug: "riot-boxy-tee-black",
-    price: 345_000,
+    name: "SPECTER Boxy Tshirt / Black",
+    slug: "specter-boxy-tshirt-black",
+    price: 319_000,
     collectionId: "col-heavyweight",
     sizes: TEE_SIZES,
     tags: ["new", "boxy", "heavyweight"],
     isFeatured: true,
-    images: pair(28338020, 28758241),
-    desc: "Boxy tee 240gsm yang dibikin buat dipaduin sama celana gombrang skena. Satu look, semua benar. Hitam pekat, oversized, jatuh berat. Inilah seragam anak skena: kaos boxy, celana lebar, selesai.",
-    material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder. Heavyweight, jatuh berat.",
+    images: pair(8532638, 8532611),
+    desc: "Heavyweight 280gsm yang berat dan jatuh sempurna. Boxy oversized dengan potongan cropped yang clean. Hitam pekat, kerah tebal, jahitan rapi. Begitu kamu pakai, kamu ngerti bedanya heavyweight premium.",
+    material: "100% cotton combed 280gsm heavyweight. Boxy oversized fit, sedikit cropped, dropped shoulder, kerah ribbing tebal.",
+  },
+  {
+    name: "RIOT Boxy Tshirt / Black",
+    slug: "riot-boxy-tshirt-black",
+    price: 335_000,
+    collectionId: "col-heavyweight",
+    sizes: TEE_SIZES,
+    tags: ["new", "boxy", "heavyweight"],
+    isFeatured: true,
+    images: pair(18186105, 8532616),
+    desc: "Boxy heavyweight yang dibikin buat dipaduin sama celana gombrang. Satu look, semua benar. 280gsm, oversized, sedikit cropped, jatuh berat. Inilah seragam premium: boxy tshirt item, celana lebar, selesai.",
+    material: "100% cotton combed 280gsm heavyweight. Boxy oversized fit, sedikit cropped, dropped shoulder.",
+  },
+  {
+    name: "FRAGMENT Boxy Tshirt / White",
+    slug: "fragment-boxy-tshirt-white",
+    price: 319_000,
+    collectionId: "col-heavyweight",
+    sizes: TEE_SIZES,
+    tags: ["new", "boxy", "heavyweight"],
+    images: pair(12039633, 2112651),
+    desc: "Heavyweight putih 280gsm dengan potongan boxy cropped. Berat, jatuh rapi, putih bersih yang berani. Premium piece buat yang nggak takut pakai putih.",
+    material: "100% cotton combed 280gsm heavyweight. Boxy oversized fit, sedikit cropped. Putih solid.",
+  },
+  {
+    name: "CORRUPT Boxy Tshirt / Black",
+    slug: "corrupt-boxy-tshirt-black",
+    price: 315_000,
+    comparePrice: 379_000,
+    collectionId: "col-heavyweight",
+    sizes: TEE_SIZES,
+    tags: ["sale", "boxy", "heavyweight"],
+    isFeatured: true,
+    images: pair(8532616, 8532611),
+    desc: "Boxy heavyweight item dengan finishing premium — kerah tebal, jahitan rapi, jatuh berat. Oversized sedikit cropped, potongan yang lagi jadi seragam skena. Stok terbatas dengan harga spesial.",
+    material: "100% cotton combed 280gsm heavyweight. Boxy oversized fit, sedikit cropped, dropped shoulder.",
   },
 ];
 
