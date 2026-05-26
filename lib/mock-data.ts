@@ -91,8 +91,8 @@ const SEEDS: Seed[] = [
     tags: ["new", "boxy", "graphic"],
     isFeatured: true,
     images: [im("BOXY/boxy-black-dont-let-fear.jpg")],
-    desc: "Boxy fit oversize dengan sablon 'DONT LET YOUR FEAR DECIDE YOUR FUTURE' dan aksen bintang merah. Cotton 240gsm yang berat dan jatuh rapi. Statement tee buat yang nggak takut melangkah.",
-    material: "100% cotton combed 240gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Sablon plastisol premium.",
+    desc: "Boxy fit oversized dengan grafis 'DON'T LET YOUR FEAR DECIDE YOUR FUTURE' dan aksen bintang merah. Dibuat dari cotton combed 240gsm — heavyweight, jatuh terstruktur, dan dibuat untuk bertahan bertahun-tahun. Sebuah statement piece untuk yang melangkah dengan yakin.",
+    material: "100% cotton combed 240gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Sablon plastisol premium, anti-retak.",
   },
   {
     name: "Hall of Fame Boxy Tee / Black",
@@ -103,7 +103,7 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["boxy", "graphic"],
     images: [im("BOXY/boxy-black-hall-of-fame.jpg")],
-    desc: "Grafis 'HALL OF FAME' bergaya liquid ungu yang mencolok di dada. Boxy oversize, badan tebal, sablon detail. Buat yang mau tampil beda tanpa norak.",
+    desc: "Grafis 'HALL OF FAME' bergaya liquid ungu yang berdiri tegas di dada. Boxy oversized dengan body tebal dan sablon high-detail. Bold namun tetap clean — untuk yang tampil beda dengan selera.",
     material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder. Sablon plastisol high-density.",
   },
   {
@@ -115,7 +115,7 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["boxy", "graphic"],
     images: [im("BOXY/boxy-black-ootdsupply-logo.jpg")],
-    desc: "Logo 'ootdsupply' minimalis di tengah dada. Clean, boxy, oversize. Buat yang suka simpel tapi tetap punya identitas.",
+    desc: "Logo 'ootdsupply' minimalis di tengah dada. Bersih, boxy, oversized — esensial yang mudah dipadupadankan tapi tetap punya identitas.",
     material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder.",
   },
   {
@@ -128,7 +128,7 @@ const SEEDS: Seed[] = [
     tags: ["new", "boxy", "graphic"],
     isFeatured: true,
     images: [im("BOXY/boxy-black-serenity-incr.jpg")],
-    desc: "Sablon 'Serenity' bergaya gothic dengan detail artwork dan tanda ®. Boxy heavyweight yang jatuh berat. Premium streetwear yang gelap dan tenang.",
+    desc: "Sablon 'Serenity' bergaya gothic dengan detail artwork dan mark ®. Boxy heavyweight yang jatuh berat dan tenang. Premium streetwear dengan karakter gelap yang elegan.",
     material: "100% cotton combed 250gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Sablon plastisol detail.",
   },
   {
@@ -140,7 +140,7 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["boxy", "graphic"],
     images: [im("BOXY/boxy-black-trust-your-heart.jpg")],
-    desc: "Sablon 'TRUST YOUR HEART' dengan grafis hati pink. Boxy oversize, soft tapi tetap berat. Pesan manis di balik potongan yang gagah.",
+    desc: "Sablon 'TRUST YOUR HEART' dengan grafis hati pink. Boxy oversized yang soft di kulit namun tetap berat di siluet — pesan hangat dalam potongan yang tegas.",
     material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder. Sablon plastisol.",
   },
   {
@@ -154,7 +154,7 @@ const SEEDS: Seed[] = [
     tags: ["sale", "boxy", "graphic"],
     isFeatured: true,
     images: [im("BOXY/boxy-black-where-is-my-mind.jpg")],
-    desc: "Sablon besar 'WHERE IS MY MIND' dengan siluet biru di tengah. Bold, boxy, oversize. Statement piece yang langsung kebaca dari jauh. Stok terbatas.",
+    desc: "Sablon besar 'WHERE IS MY MIND' dengan siluet biru di tengah. Bold, boxy, dan oversized — statement piece yang terbaca dari kejauhan. Stok terbatas.",
     material: "100% cotton combed 250gsm. Boxy oversized fit, sedikit cropped, dropped shoulder. Sablon plastisol high-density.",
   },
   {
@@ -166,7 +166,7 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["boxy", "graphic"],
     images: [im("BOXY/boxy-white-noversation-wush.jpg")],
-    desc: "Putih bersih dengan sablon 'Noversation — Wush Club' dan garis kontras di bahu. Boxy oversize, fresh, dan clean. Buat yang berani pakai putih.",
+    desc: "Putih bersih dengan sablon 'Noversation — Wush Club' dan garis kontras di bahu. Boxy oversized yang fresh dan clean — untuk yang percaya diri tampil dalam putih.",
     material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder. Putih solid, sablon plastisol.",
   },
   {
@@ -179,7 +179,7 @@ const SEEDS: Seed[] = [
     tags: ["boxy", "graphic"],
     isFeatured: true,
     images: [im("BOXY/boxy-white-sweet-culture.jpg")],
-    desc: "Sablon punggung besar 'SWEET CULTURE' bergaya oversize boxy fit. Putih bersih, combed 240gsm. Backprint yang bikin look kamu jadi.",
+    desc: "Backprint besar 'SWEET CULTURE' dalam siluet boxy oversized. Putih bersih dari cotton combed 240gsm — clean look yang langsung jadi begitu dikenakan.",
     material: "100% cotton combed 240gsm. Oversize boxy fit, sedikit cropped. Putih solid, backprint plastisol.",
   },
 
@@ -194,7 +194,7 @@ const SEEDS: Seed[] = [
     tags: ["boxy", "fleece"],
     isFeatured: true,
     images: [im("HOODIE/hoodie-oversized-black-plain.jpg")],
-    desc: "Hoodie oversized polos paling dasar. 400gsm fleece yang berat, kangaroo pocket dalam, hood double-layer. Hitam pekat. Dasar yang wajib punya.",
+    desc: "Hoodie oversized polos — esensial paling dasar. Fleece 400gsm yang berat dan hangat, kangaroo pocket dalam, dan hood double-layer. Hitam pekat yang tidak pernah salah.",
     material: "Fleece cotton 400gsm, brushed back. Oversized fit, kangaroo pocket, ribbing tebal di cuff & hem.",
   },
   {
@@ -208,7 +208,7 @@ const SEEDS: Seed[] = [
     tags: ["sale", "boxy", "fleece", "graphic"],
     isFeatured: true,
     images: [im("HOODIE/hoodie-oversized-black-rockstar-art-dist.jpg")],
-    desc: "Hoodie oversized hitam dengan artwork 'ROCKSTAR ART DIST' di depan. 420gsm heavyweight yang dramatis. Premium piece dengan stok terbatas.",
+    desc: "Hoodie oversized hitam dengan artwork 'ROCKSTAR ART DIST' di depan. Heavyweight 420gsm yang dramatis dan jatuh penuh. Premium piece dengan stok terbatas.",
     material: "Fleece cotton 420gsm, brushed back. Oversized fit, kangaroo pocket, hood double-layer. Sablon artwork detail.",
   },
   {
@@ -220,7 +220,7 @@ const SEEDS: Seed[] = [
     sizes: HOOD,
     tags: ["boxy", "fleece", "graphic"],
     images: [im("HOODIE/hoodie-oversized-black-screamed.jpg")],
-    desc: "Hoodie oversized dengan grafis 'SCREAMED' yang clean di dada. 400gsm, hangat dan berat. Gelap, tenang, premium.",
+    desc: "Hoodie oversized dengan grafis 'SCREAMED' yang clean di dada. Fleece 400gsm — hangat, berat, dan tenang. Gelap dan premium tanpa berlebihan.",
     material: "Fleece cotton 400gsm, brushed back. Oversized fit, kangaroo pocket, ribbing tebal.",
   },
   {
@@ -233,7 +233,7 @@ const SEEDS: Seed[] = [
     tags: ["new", "boxy", "fleece", "graphic"],
     isFeatured: true,
     images: [im("HOODIE/hoodie-oversized-black-story-of-human.jpg")],
-    desc: "Hoodie oversized hitam dengan artwork emas klasik di lengan — 'Story of Human'. 420gsm heavyweight. Flagship piece yang bikin look kamu naik level.",
+    desc: "Hoodie oversized hitam dengan artwork emas klasik di lengan — 'Story of Human'. Heavyweight 420gsm. Flagship piece yang menaikkan level setiap look.",
     material: "Fleece cotton 420gsm, brushed back. Oversized fit, sleeve artwork emas, hood double-layer.",
   },
   {
@@ -245,7 +245,7 @@ const SEEDS: Seed[] = [
     sizes: HOOD,
     tags: ["new", "boxy", "fleece", "zip"],
     images: [im("HOODIE/hoodie-oversized-blue-tennessee-whiskey-zip.jpg")],
-    desc: "Full-zip hoodie warna biru dusty dengan bordir 'WHISKEY'. 380gsm, layering piece yang clean dan adem. Warna yang beda dari yang lain.",
+    desc: "Full-zip hoodie dalam dusty blue dengan bordir 'WHISKEY'. Fleece 380gsm — layering piece yang clean dan adem. Warna yang berani tampil beda.",
     material: "Fleece cotton 380gsm, brushed back. Full-zip metal, oversized fit, hood double-layer. Warna dusty blue.",
   },
   {
@@ -257,7 +257,7 @@ const SEEDS: Seed[] = [
     sizes: HOOD,
     tags: ["new", "boxy", "fleece", "graphic"],
     images: [im("HOODIE/hoodie-oversized-cream-pray-the-lord.jpg")],
-    desc: "Hoodie oversized warna cream dengan artwork biru spray 'pray the lord'. 400gsm, hangat dan lembut. Warna netral yang gampang dipaduin.",
+    desc: "Hoodie oversized warna cream dengan artwork spray biru 'pray the lord'. Fleece 400gsm yang hangat dan lembut. Tone netral yang mudah dipadupadankan.",
     material: "Fleece cotton 400gsm, brushed back. Oversized fit, kangaroo pocket. Warna cream, sablon spray artwork.",
   },
   {
@@ -269,7 +269,7 @@ const SEEDS: Seed[] = [
     sizes: HOOD,
     tags: ["boxy", "fleece", "graphic"],
     images: [im("HOODIE/hoodie-oversized-grey-rockstar-art-dist.jpg")],
-    desc: "Versi grey dari Rockstar Art dengan artwork 'ROCKSTAR ART DIST' dan garis di lengan. 420gsm heavyweight. Abu-abu muda yang premium.",
+    desc: "Versi grey dari Rockstar Art — artwork 'ROCKSTAR ART DIST' dengan garis di lengan. Heavyweight 420gsm. Light grey yang terasa premium.",
     material: "Fleece cotton 420gsm, brushed back. Oversized fit, sleeve stripes, hood double-layer. Warna light grey.",
   },
 
@@ -284,8 +284,8 @@ const SEEDS: Seed[] = [
     tags: ["new", "baggy", "denim"],
     isFeatured: true,
     images: [im("PANTS/pants-baggy-blue-flare-beach.jpg")],
-    desc: "Jeans baggy flare biru dengan whisker wash. Gombrang dari paha sampai ujung yang melebar. Siluet skena yang bebas dan bergaya. Denim berkualitas yang nyaman dipakai seharian.",
-    material: "Denim cotton premium, baggy flare fit, mid-rise. Wash whisker biru klasik, pinggang dengan belt loop.",
+    desc: "Baggy flare jeans biru dengan whisker wash. Gombrang dari paha hingga melebar di ujung — siluet skena yang bebas dan bergaya. Premium denim yang nyaman dipakai seharian.",
+    material: "Premium cotton denim, baggy flare fit, mid-rise. Whisker wash biru klasik, belt loop.",
   },
   {
     name: "Faded Baggy Jeans / Blue",
@@ -296,8 +296,8 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["baggy", "denim"],
     images: [im("PANTS/pants-baggy-faded-blue-back.jpg")],
-    desc: "Jeans baggy dengan faded wash biru pudar yang vintage. Potongan lebar, jatuh berat, makin dipakai makin berkarakter. Skena banget.",
-    material: "Denim cotton premium, baggy straight fit, mid-rise. Faded wash, saku belakang klasik.",
+    desc: "Baggy jeans dengan faded wash biru pudar yang vintage. Potongan lebar dan jatuh berat — makin sering dipakai, makin berkarakter.",
+    material: "Premium cotton denim, baggy straight fit, mid-rise. Faded wash, saku belakang klasik.",
   },
   {
     name: "Washed Flare Jeans / Grey",
@@ -309,8 +309,8 @@ const SEEDS: Seed[] = [
     tags: ["new", "baggy", "denim"],
     isFeatured: true,
     images: [im("PANTS/pants-baggy-grey-washed-flare.jpg")],
-    desc: "Jeans flare warna grey dengan washed effect yang moody. Gombrang dan melebar di bawah. Warna abu yang gampang dipaduin sama atasan apa aja.",
-    material: "Denim cotton premium, baggy flare fit, mid-rise. Grey washed effect, belt loop.",
+    desc: "Flare jeans abu dengan washed effect yang moody. Gombrang dan melebar di bawah — warna netral yang mudah dipasangkan dengan atasan apa pun.",
+    material: "Premium cotton denim, baggy flare fit, mid-rise. Grey washed effect, belt loop.",
   },
   {
     name: "Wide Leg Jeans / Light Blue",
@@ -321,8 +321,8 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["baggy", "denim"],
     images: [im("PANTS/pants-baggy-light-blue-wide-leg.jpg"), im("PANTS/pants-baggy-light-blue-front.jpg")],
-    desc: "Jeans wide leg biru muda yang clean dan adem. Gombrang lurus dari pinggang sampai ujung. Light wash yang fresh buat outfit harian.",
-    material: "Denim cotton premium, wide leg fit, mid-rise. Light blue wash, jatuh lurus.",
+    desc: "Wide leg jeans biru muda yang clean dan adem. Gombrang lurus dari pinggang sampai ujung — light wash yang fresh untuk outfit harian.",
+    material: "Premium cotton denim, wide leg fit, mid-rise. Light blue wash, jatuh lurus.",
   },
   {
     name: "INF Baggy Jeans / Light Blue",
@@ -333,8 +333,8 @@ const SEEDS: Seed[] = [
     sizes: TEE,
     tags: ["new", "baggy", "denim"],
     images: [im("PANTS/pants-baggy-light-blue-inf-back.jpg")],
-    desc: "Jeans baggy light blue dengan branding 'inf'. Gombrang, washed lembut, siluet skate yang santai. Buat yang main board atau cuma pengin tampil santai.",
-    material: "Denim cotton premium, baggy fit, mid-rise. Light blue wash, detail branding inf.",
+    desc: "Baggy jeans light blue dengan detail branding 'inf'. Gombrang dengan washed lembut dan siluet skate yang santai — relaxed tanpa kehilangan bentuk.",
+    material: "Premium cotton denim, baggy fit, mid-rise. Light blue wash, detail branding inf.",
   },
 ];
 
