@@ -9,7 +9,7 @@ export interface JournalArticle {
   readingMinutes: number;
 }
 
-const img = (id: string) => `https://images.unsplash.com/photo-${id}?w=800&q=80&fit=crop`;
+const img = (file: string) => `/products/${file}`;
 
 export const JOURNAL_ARTICLES: JournalArticle[] = [
   {
@@ -18,7 +18,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     excerpt:
       "On darkness as a discipline — how the after-dark palette shaped our debut tailoring.",
     category: "Collections",
-    image: img("1558618666-fcd25c85cd64"),
+    image: img("HOODIE/hoodie-oversized-black-story-of-human.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-04-18",
     readingMinutes: 5,
@@ -29,7 +29,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     excerpt:
       "Inside the ateliers and the hands that finish every LUXAFOIR piece.",
     category: "Behind the Brand",
-    image: img("1558769132-cb1aea458c5e"),
+    image: img("BOXY/boxy-black-serenity-incr.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-03-30",
     readingMinutes: 7,
@@ -40,7 +40,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     excerpt:
       "A field guide to technical layering when the rains arrive — function as form.",
     category: "Style Guide",
-    image: img("1539109136881-3be0616acf4b"),
+    image: img("PANTS/pants-baggy-blue-flare-beach.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-03-12",
     readingMinutes: 4,
@@ -50,7 +50,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     title: "The Language of Gold",
     excerpt: "Why a single restrained accent says more than a wardrobe of colour.",
     category: "Behind the Brand",
-    image: img("1535632066927-ab7c9ab60908"),
+    image: img("HOODIE/hoodie-oversized-black-rockstar-art-dist.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-02-26",
     readingMinutes: 3,
@@ -60,7 +60,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     title: "Distinct 001 — The Lookbook",
     excerpt: "The full debut, frame by frame. Where craft meets a global silhouette.",
     category: "Collections",
-    image: img("1490481651871-ab68de25d43d"),
+    image: img("BOXY/boxy-white-sweet-culture.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-02-10",
     readingMinutes: 6,
@@ -70,7 +70,7 @@ export const JOURNAL_ARTICLES: JournalArticle[] = [
     title: "Caring for Merino & Cashmere",
     excerpt: "Make the good things last. A primer on caring for fine knitwear.",
     category: "Style Guide",
-    image: img("1576566588028-4147f3842f27"),
+    image: img("HOODIE/hoodie-oversized-cream-pray-the-lord.jpg"),
     author: "Studio LUXAFOIR",
     date: "2026-01-22",
     readingMinutes: 4,

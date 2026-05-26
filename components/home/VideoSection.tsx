@@ -19,7 +19,7 @@ interface VideoSectionProps {
  */
 export function VideoSection({
   videoSrc,
-  poster = "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1920&h=1080&q=80",
+  poster = "/products/PANTS/pants-baggy-grey-washed-flare.jpg",
   eyebrow = "The Film",
   headline = "Crafted, frame by frame.",
   href = "/journal",

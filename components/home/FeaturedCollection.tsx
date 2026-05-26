@@ -30,7 +30,7 @@ export function FeaturedCollection({
         )}
       >
         <ImageWithBlur
-          src={collection.image ?? "https://images.pexels.com/photos/28758240/pexels-photo-28758240.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=1500"}
+          src={collection.image ?? "/products/HOODIE/hoodie-oversized-black-story-of-human.jpg"}
           alt={collection.name}
           fill
           priority={priority}

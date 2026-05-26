@@ -52,7 +52,7 @@ export function ShopTheLook({ image, products }: ShopTheLookProps) {
       <Reveal delay={0.1}>
         <div className="relative mx-auto aspect-[4/5] w-full max-w-3xl overflow-hidden bg-charcoal md:aspect-[16/10]">
           <ImageWithBlur
-            src={image ?? "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&h=1000&q=80"}
+            src={image ?? "/products/PANTS/pants-baggy-light-blue-front.jpg"}
             alt="Shop the look"
             fill
             sizes="(max-width: 768px) 100vw, 768px"

@@ -29,7 +29,7 @@ export function AboutContent() {
       {/* Hero */}
       <section className="relative -mt-[var(--nav-h-mobile)] flex h-[90svh] items-end overflow-hidden bg-obsidian md:-mt-[var(--nav-h)]">
         <ImageWithBlur
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&h=2400&q=80"
+          src="/products/HOODIE/hoodie-oversized-black-story-of-human.jpg"
           alt="LUXAFOIR editorial"
           fill
           priority

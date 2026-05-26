@@ -16,41 +16,30 @@ interface Slide {
   secondary: { label: string; href: string };
 }
 
-// Free-to-use Pexels model shots (boxy tee + skena), full color.
-const hero = (id: number) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1920&h=1280`;
-
+// Self-hosted lifestyle shots (skena pants on model), full color.
 const SLIDES: Slide[] = [
   {
-    image: hero(28758240),
+    image: "/products/PANTS/pants-baggy-blue-flare-beach.jpg",
     label: "New Drop — 2026",
-    headline: "Boxy.\nSelalu.",
-    subtext: "Oversized, jatuh berat, dropped shoulder. Tidak pernah salah.",
+    headline: "Baggy.\nBebas.",
+    subtext: "Celana skena gombrang — wide, flare, washed. Tidak dikekang.",
     primary: { label: "Belanja Sekarang", href: "/shop" },
-    secondary: { label: "Koleksi Baru", href: "/shop?sort=newest" },
+    secondary: { label: "Koleksi Pants", href: "/collections/monsoon" },
   },
   {
-    image: hero(28338020),
+    image: "/products/PANTS/pants-baggy-light-blue-front.jpg",
     label: "Skena Uniform",
-    headline: "Boxy Tee.\nGombrang.",
-    subtext: "Kaos boxy, celana lebar. Satu look, semua benar.",
-    primary: { label: "Lihat Heavyweight", href: "/collections/obsidian-hour" },
-    secondary: { label: "Semua Tee", href: "/shop" },
-  },
-  {
-    image: hero(18860079),
-    label: "Black & White",
-    headline: "Hitam.\nPutih.",
-    subtext: "Dua warna. Tidak butuh yang lain.",
-    primary: { label: "Lihat Essentials", href: "/collections/distinct-001" },
+    headline: "Boxy &\nGombrang.",
+    subtext: "Boxy tee di atas, celana lebar di bawah. Satu look, semua benar.",
+    primary: { label: "Lihat Boxy Tee", href: "/collections/distinct-001" },
     secondary: { label: "Belanja Semua", href: "/shop" },
   },
   {
-    image: hero(33993734),
-    label: "Local Pride",
+    image: "/products/PANTS/pants-baggy-grey-washed-flare.jpg",
+    label: "Premium · Lokal",
     headline: "Dari\nIndonesia.",
-    subtext: "Brand lokal, kualitas global. Made with conviction.",
-    primary: { label: "Belanja Sekarang", href: "/shop" },
+    subtext: "Boxy, hoodie, dan celana skena. Brand lokal, kualitas global.",
+    primary: { label: "Lihat Heavyweight", href: "/collections/obsidian-hour" },
     secondary: { label: "Tentang Kami", href: "/about" },
   },
 ];
