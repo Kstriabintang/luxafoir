@@ -1,10 +1,9 @@
 import type { Product, Category, Collection } from "@/types/product";
 
 /**
- * Mock catalog — focused on BOXY / OVERSIZED tees only (black & white).
- * Imagery = free-to-use Pexels photos (verified 200, hotlink-legal). Every
- * product/model image is forced to monochrome in the UI (grayscale filter), so
- * the storefront reads strictly black & white regardless of the source photo.
+ * Mock catalog — focused on BOXY / OVERSIZED tees only. The GARMENTS are
+ * black & white colorways (the products themselves), but the photography is
+ * full color. Imagery = free-to-use Pexels photos (verified 200, hotlink-legal).
  * Replace these getters with Prisma/Supabase queries once the DB is live.
  */
 

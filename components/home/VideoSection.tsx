@@ -29,7 +29,7 @@ export function VideoSection({
     <section className="relative h-[80svh] w-full overflow-hidden bg-obsidian">
       {videoSrc ? (
         <video
-          className="absolute inset-0 size-full object-cover grayscale"
+          className="absolute inset-0 size-full object-cover"
           src={videoSrc}
           poster={poster}
           autoPlay
@@ -38,7 +38,7 @@ export function VideoSection({
           playsInline
         />
       ) : (
-        <ImageWithBlur src={poster} alt={headline} fill sizes="100vw" className="object-cover grayscale" />
+        <ImageWithBlur src={poster} alt={headline} fill sizes="100vw" className="object-cover" />
       )}
 
       <div className="absolute inset-0 bg-obsidian/50" />

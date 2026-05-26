@@ -54,7 +54,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
               fill
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover grayscale"
+              className="object-cover"
             />
           </div>
           <span className="absolute right-4 top-4 flex size-9 items-center justify-center bg-obsidian/50 text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
@@ -91,7 +91,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                 i === active ? "border-gold" : "border-transparent hover:border-ash"
               )}
             >
-              <ImageWithBlur src={src} alt="" fill sizes="80px" className="object-cover grayscale" />
+              <ImageWithBlur src={src} alt="" fill sizes="80px" className="object-cover" />
             </button>
           ))}
         </div>
@@ -155,7 +155,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                     alt={`${name} — view ${active + 1}`}
                     fill
                     sizes="90vw"
-                    className="object-contain grayscale"
+                    className="object-contain"
                   />
                 </motion.div>
               </motion.div>

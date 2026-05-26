@@ -35,7 +35,7 @@ export function FeaturedCollection({
           fill
           priority={priority}
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover grayscale transition-transform duration-cinematic ease-out-expo group-hover:scale-105"
+          className="object-cover transition-transform duration-cinematic ease-out-expo group-hover:scale-105"
         />
       </div>
 

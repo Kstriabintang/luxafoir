@@ -18,10 +18,10 @@ interface ProductCardProps {
 
 const NEW_TAG = "new";
 
-/** Forces every product image to strict black & white, cohesive across sources. */
+/** Subtle, color-preserving polish to keep product shots cohesive. */
 const IMG_STYLE = {
   objectPosition: "center top",
-  filter: "grayscale(100%) contrast(1.06) brightness(0.98)",
+  filter: "contrast(1.04) brightness(0.99)",
 } as const;
 
 export function ProductCard({ product, priority, className }: ProductCardProps) {

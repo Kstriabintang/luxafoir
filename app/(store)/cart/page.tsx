@@ -53,7 +53,7 @@ export default function CartPage() {
                   href={`/product/${item.slug}`}
                   className="relative aspect-[3/4] w-24 shrink-0 overflow-hidden bg-charcoal md:w-28"
                 >
-                  <ImageWithBlur src={item.image} alt={item.name} fill sizes="112px" className="object-cover grayscale" />
+                  <ImageWithBlur src={item.image} alt={item.name} fill sizes="112px" className="object-cover" />
                 </Link>
 
                 <div className="flex flex-1 flex-col">

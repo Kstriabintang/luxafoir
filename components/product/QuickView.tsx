@@ -71,7 +71,7 @@ export function QuickView() {
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </div>
             {product.images.length > 1 && (
@@ -85,7 +85,7 @@ export function QuickView() {
                       i === activeImg ? "border-gold" : "border-transparent hover:border-ash"
                     )}
                   >
-                    <ImageWithBlur src={src} alt="" fill sizes="64px" className="object-cover grayscale" />
+                    <ImageWithBlur src={src} alt="" fill sizes="64px" className="object-cover" />
                   </button>
                 ))}
               </div>

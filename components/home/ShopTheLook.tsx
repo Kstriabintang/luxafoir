@@ -56,7 +56,7 @@ export function ShopTheLook({ image, products }: ShopTheLookProps) {
             alt="Shop the look"
             fill
             sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover grayscale"
+            className="object-cover"
           />
 
           {hotspots.map(({ product, x, y }) => {
@@ -97,7 +97,7 @@ export function ShopTheLook({ image, products }: ShopTheLookProps) {
                             alt={product.name}
                             fill
                             sizes="64px"
-                            className="object-cover grayscale"
+                            className="object-cover"
                           />
                         </div>
                         <div className="min-w-0">

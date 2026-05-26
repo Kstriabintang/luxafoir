@@ -39,7 +39,7 @@ export default function ArticlePage({ params }: Params) {
     <article className="pb-10">
       {/* Hero */}
       <header className="relative -mt-[var(--nav-h-mobile)] flex h-[80svh] items-end overflow-hidden bg-obsidian md:-mt-[var(--nav-h)]">
-        <ImageWithBlur src={article.image} alt={article.title} fill priority sizes="100vw" className="object-cover grayscale" />
+        <ImageWithBlur src={article.image} alt={article.title} fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
         <div className="relative z-10 mx-auto w-full max-w-3xl px-site pb-16 text-center">
           <p className="text-label uppercase tracking-label text-gold">{article.category}</p>
@@ -97,7 +97,7 @@ export default function ArticlePage({ params }: Params) {
                   alt={a.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover grayscale transition-transform duration-slow ease-out-expo group-hover:scale-105"
+                  className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-105"
                 />
               </div>
               <p className="mt-4 text-label uppercase tracking-label text-gold">{a.category}</p>

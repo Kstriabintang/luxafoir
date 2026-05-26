@@ -81,7 +81,7 @@ export function JournalView({ articles }: { articles: JournalArticle[] }) {
                   alt={article.title}
                   fill
                   sizes={category === "All" && i === 0 ? "100vw" : "(max-width: 768px) 100vw, 33vw"}
-                  className="object-cover grayscale transition-transform duration-slow ease-out-expo group-hover:scale-105"
+                  className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-105"
                 />
               </div>
               <p className="mt-5 text-label uppercase tracking-label text-gold">{t(CAT_KEY[article.category] ?? article.category)}</p>

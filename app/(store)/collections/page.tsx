@@ -29,7 +29,7 @@ export default function CollectionsPage() {
                   alt={c.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover grayscale transition-transform duration-slow ease-out-expo group-hover:scale-105"
+                  className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-105"
                 />
                 <div
                   className="absolute inset-0 transition-opacity group-hover:opacity-90"

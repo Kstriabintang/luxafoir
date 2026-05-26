@@ -42,7 +42,7 @@ export default function CollectionPage({ params }: Params) {
           fill
           priority
           sizes="100vw"
-          className="object-cover grayscale"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-obsidian/20" />
         <div className="relative z-10 mx-auto w-full max-w-site px-site pb-14">

@@ -16,7 +16,7 @@ interface Slide {
   secondary: { label: string; href: string };
 }
 
-// Free-to-use Pexels model shots (boxy tee + skena). Rendered monochrome below.
+// Free-to-use Pexels model shots (boxy tee + skena), full color.
 const hero = (id: number) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1920&h=1280`;
 
@@ -107,7 +107,7 @@ export function HeroSection() {
             fill
             priority={index === 0}
             sizes="100vw"
-            className="object-cover grayscale"
+            className="object-cover"
           />
         </motion.div>
       </AnimatePresence>
