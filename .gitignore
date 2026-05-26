@@ -42,3 +42,9 @@ next-env.d.ts
 
 # private / local only
 prompts.md
+
+# Cloudflare local function secrets
+.dev.vars
+
+# Cloudflare wrangler local cache
+.wrangler/

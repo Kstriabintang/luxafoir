@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Server-rendered on Vercel (was a static export for GitHub Pages). The
-  // server runtime is what lets the Pakasir API routes keep the API key secret.
+  // Static export (served by Cloudflare Pages). The secure Pakasir endpoints
+  // live as Cloudflare Pages Functions in /functions (edge workers on the same
+  // domain) — that's what keeps the API key server-side without a Node server.
+  output: "export",
   reactStrictMode: true,
+  trailingSlash: true,
   images: {
-    // Product imagery is self-hosted in /public; no external optimizer needed.
     unoptimized: true,
-    remotePatterns: [
-      { protocol: "https", hostname: "*.supabase.co" },
-    ],
+    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
   },
 };
 
