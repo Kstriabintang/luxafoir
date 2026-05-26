@@ -15,8 +15,9 @@ import { useCart } from "@/hooks/useCart";
 import { shippingSchema, PROVINCES, PROMO_CODES, type ShippingFormValues } from "@/lib/validations";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/constants";
 import { PakasirPayment } from "./PakasirPayment";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
-const STEPS = ["Shipping", "Review", "Payment"] as const;
+const STEPS = ["checkout.shipping", "checkout.review", "checkout.payment"] as const;
 const JAVA = ["DKI Jakarta", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Banten", "DI Yogyakarta"];
 
 function estimateShipping(subtotal: number, province: string | undefined) {
@@ -28,6 +29,7 @@ function estimateShipping(subtotal: number, province: string | undefined) {
 export function CheckoutView() {
   const router = useRouter();
   const { items, summary, clear, hydrated } = useCart();
+  const { t } = useTranslation();
 
   const [step, setStep] = useState(0);
   const [shipping, setShipping] = useState<ShippingFormValues | null>(null);
@@ -56,7 +58,7 @@ export function CheckoutView() {
     const code = promoInput.trim().toUpperCase();
     const found = PROMO_CODES[code];
     if (!found) {
-      toast.error("Invalid promo code");
+      toast.error(t("checkout.invalidPromo"));
       return;
     }
     const amount =
@@ -64,7 +66,7 @@ export function CheckoutView() {
         ? Math.round((summary.subtotal * found.value) / 100)
         : found.value;
     setPromo({ code, amount, label: found.label });
-    toast.success(`Promo applied — ${found.label}`);
+    toast.success(`${t("checkout.promoApplied")} — ${found.label}`);
   };
 
   const onShippingSubmit = (values: ShippingFormValues) => {
@@ -96,7 +98,7 @@ export function CheckoutView() {
 
   return (
     <div className="mx-auto max-w-site px-site pt-16 md:pt-24">
-      <h1 className="font-display text-h1 font-light text-ivory">Checkout</h1>
+      <h1 className="font-display text-h1 font-light text-ivory">{t("checkout.title")}</h1>
 
       {/* Step indicator */}
       <div className="mt-8 flex items-center gap-3">
@@ -121,7 +123,7 @@ export function CheckoutView() {
                   i <= step ? "text-ivory" : "text-smoke"
                 )}
               >
-                {label}
+                {t(label)}
               </span>
             </div>
             {i < STEPS.length - 1 && <span className="h-px w-8 bg-ash" />}
@@ -143,32 +145,32 @@ export function CheckoutView() {
                 onSubmit={form.handleSubmit(onShippingSubmit)}
                 className="flex flex-col gap-5"
               >
-                <h2 className="text-label uppercase tracking-label text-gold">Shipping Information</h2>
+                <h2 className="text-label uppercase tracking-label text-gold">{t("checkout.shippingInfo")}</h2>
 
-                <Field label="Full Name" error={form.formState.errors.fullName?.message}>
-                  <input {...form.register("fullName")} className={inputCls} placeholder="Your full name" />
+                <Field label={t("checkout.fullName")} error={form.formState.errors.fullName?.message}>
+                  <input {...form.register("fullName")} className={inputCls} placeholder={t("checkout.fullNamePh")} />
                 </Field>
 
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                  <Field label="Email" error={form.formState.errors.email?.message}>
+                  <Field label={t("checkout.email")} error={form.formState.errors.email?.message}>
                     <input {...form.register("email")} className={inputCls} placeholder="you@email.com" />
                   </Field>
-                  <Field label="Phone" error={form.formState.errors.phone?.message}>
+                  <Field label={t("checkout.phone")} error={form.formState.errors.phone?.message}>
                     <input {...form.register("phone")} className={inputCls} placeholder="+62 …" />
                   </Field>
                 </div>
 
-                <Field label="Address" error={form.formState.errors.address?.message}>
-                  <input {...form.register("address")} className={inputCls} placeholder="Street, building, unit" />
+                <Field label={t("checkout.address")} error={form.formState.errors.address?.message}>
+                  <input {...form.register("address")} className={inputCls} placeholder={t("checkout.addressPh")} />
                 </Field>
 
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                  <Field label="City" error={form.formState.errors.city?.message}>
-                    <input {...form.register("city")} className={inputCls} placeholder="City" />
+                  <Field label={t("checkout.city")} error={form.formState.errors.city?.message}>
+                    <input {...form.register("city")} className={inputCls} placeholder={t("checkout.cityPh")} />
                   </Field>
-                  <Field label="Province" error={form.formState.errors.province?.message}>
+                  <Field label={t("checkout.province")} error={form.formState.errors.province?.message}>
                     <select {...form.register("province")} className={cn(inputCls, "appearance-none")}>
-                      <option value="">Select province</option>
+                      <option value="">{t("checkout.selectProvince")}</option>
                       {PROVINCES.map((p) => (
                         <option key={p} value={p} className="bg-charcoal">
                           {p}
@@ -176,22 +178,22 @@ export function CheckoutView() {
                       ))}
                     </select>
                   </Field>
-                  <Field label="Postal Code" error={form.formState.errors.postalCode?.message}>
+                  <Field label={t("checkout.postalCode")} error={form.formState.errors.postalCode?.message}>
                     <input {...form.register("postalCode")} className={inputCls} placeholder="12345" />
                   </Field>
                 </div>
 
-                <Field label="Order Notes (optional)">
+                <Field label={t("checkout.notes")}>
                   <textarea
                     {...form.register("notes")}
                     rows={3}
                     className={cn(inputCls, "resize-none")}
-                    placeholder="Delivery instructions, gift note…"
+                    placeholder={t("checkout.notesPh")}
                   />
                 </Field>
 
                 <Button type="submit" variant="solid" size="lg" className="mt-2 self-start">
-                  Continue to Review
+                  {t("checkout.continueReview")}
                 </Button>
               </motion.form>
             )}
@@ -206,17 +208,17 @@ export function CheckoutView() {
                 className="flex flex-col gap-8"
               >
                 <div className="flex items-center justify-between">
-                  <h2 className="text-label uppercase tracking-label text-gold">Review Your Order</h2>
+                  <h2 className="text-label uppercase tracking-label text-gold">{t("checkout.reviewOrder")}</h2>
                   <button
                     onClick={() => setStep(0)}
                     className="inline-flex items-center gap-1.5 text-label uppercase tracking-label text-smoke hover:text-gold"
                   >
-                    <Pencil className="size-3.5" /> Edit
+                    <Pencil className="size-3.5" /> {t("checkout.edit")}
                   </button>
                 </div>
 
                 <div className="border border-ash p-6">
-                  <h3 className="text-caption uppercase tracking-wide text-smoke">Ship to</h3>
+                  <h3 className="text-caption uppercase tracking-wide text-smoke">{t("checkout.shipTo")}</h3>
                   <p className="mt-3 text-body text-ivory">{shipping.fullName}</p>
                   <p className="text-body text-mist">{shipping.address}</p>
                   <p className="text-body text-mist">
@@ -227,7 +229,7 @@ export function CheckoutView() {
                   </p>
                   {shipping.notes && (
                     <p className="mt-3 border-t border-ash pt-3 text-caption text-smoke">
-                      Note: {shipping.notes}
+                      {t("checkout.note")}: {shipping.notes}
                     </p>
                   )}
                 </div>
@@ -242,7 +244,7 @@ export function CheckoutView() {
                         <div>
                           <p className="text-label uppercase tracking-label text-ivory">{item.name}</p>
                           <p className="mt-1 text-caption text-smoke">
-                            Size {item.size} · Qty {item.quantity}
+                            {t("checkout.size")} {item.size} · {t("checkout.qty")} {item.quantity}
                           </p>
                         </div>
                         <p className="font-mono text-sm text-ivory">
@@ -255,10 +257,10 @@ export function CheckoutView() {
 
                 <div className="flex gap-3">
                   <Button variant="dark" size="lg" onClick={() => setStep(0)}>
-                    <ChevronLeft className="size-4" /> Back
+                    <ChevronLeft className="size-4" /> {t("checkout.back")}
                   </Button>
                   <Button variant="solid" size="lg" className="flex-1" onClick={startPayment}>
-                    Continue to Payment
+                    {t("checkout.continuePayment")}
                   </Button>
                 </div>
               </motion.div>
@@ -273,7 +275,7 @@ export function CheckoutView() {
                 exit={{ opacity: 0, x: -20 }}
                 className="flex flex-col gap-6"
               >
-                <h2 className="text-label uppercase tracking-label text-gold">Payment</h2>
+                <h2 className="text-label uppercase tracking-label text-gold">{t("checkout.payment")}</h2>
                 <PakasirPayment
                   orderId={orderId}
                   amount={Math.round(total)}
@@ -288,7 +290,7 @@ export function CheckoutView() {
         {/* Right — order summary */}
         <aside className="h-fit lg:sticky lg:top-[calc(var(--nav-h)+24px)]">
           <div className="border border-ash bg-void p-7">
-            <h2 className="text-label uppercase tracking-label text-ivory">Order Summary</h2>
+            <h2 className="text-label uppercase tracking-label text-ivory">{t("checkout.orderSummary")}</h2>
 
             <div className="mt-5 max-h-64 space-y-4 overflow-y-auto pr-1">
               {items.map((item) => (
@@ -301,7 +303,7 @@ export function CheckoutView() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-caption text-ivory">{item.name}</p>
-                    <p className="text-caption text-smoke">Size {item.size}</p>
+                    <p className="text-caption text-smoke">{t("checkout.size")} {item.size}</p>
                   </div>
                   <p className="font-mono text-xs text-mist">{formatIDR(item.price * item.quantity)}</p>
                 </div>
@@ -313,25 +315,25 @@ export function CheckoutView() {
               <input
                 value={promoInput}
                 onChange={(e) => setPromoInput(e.target.value)}
-                placeholder="Promo code"
+                placeholder={t("checkout.promoPh")}
                 className="flex-1 border border-ash bg-transparent px-3 py-2.5 text-caption uppercase tracking-wide text-ivory placeholder:text-smoke focus:border-gold focus:outline-none"
               />
               <Button variant="dark" size="sm" onClick={applyPromo}>
-                Apply
+                {t("checkout.apply")}
               </Button>
             </div>
 
             {/* Totals */}
             <div className="mt-6 flex flex-col gap-3 border-t border-ash pt-6 text-caption">
-              <Row label="Subtotal" value={formatIDR(summary.subtotal)} />
+              <Row label={t("checkout.subtotal")} value={formatIDR(summary.subtotal)} />
               <Row
-                label="Shipping"
-                value={shippingCost === 0 ? "Free" : formatIDR(shippingCost)}
+                label={t("checkout.shippingRow")}
+                value={shippingCost === 0 ? t("checkout.free") : formatIDR(shippingCost)}
                 accent={shippingCost === 0}
               />
               {promo && <Row label={`Promo (${promo.code})`} value={`− ${formatIDR(discount)}`} accent />}
               <div className="mt-2 flex items-center justify-between border-t border-ash pt-4">
-                <span className="text-label uppercase tracking-label text-ivory">Total</span>
+                <span className="text-label uppercase tracking-label text-ivory">{t("checkout.total")}</span>
                 <span className="font-mono text-base text-gold">{formatIDR(total)}</span>
               </div>
             </div>
@@ -340,7 +342,7 @@ export function CheckoutView() {
               href="/cart"
               className="mt-6 block text-center text-label uppercase tracking-label text-smoke transition-colors hover:text-ivory"
             >
-              Back to Cart
+              {t("checkout.backToCart")}
             </Link>
           </div>
         </aside>

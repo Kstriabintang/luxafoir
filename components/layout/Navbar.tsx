@@ -12,26 +12,70 @@ import { useUIStore } from "@/stores/ui.store";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useTranslation } from "@/components/i18n/LanguageProvider";
+import { type Lang } from "@/lib/i18n";
+
+const LANG_FLAG: Record<Lang, string> = { id: "🇮🇩", en: "🇬🇧" };
+const LANG_NAME: Record<Lang, string> = { id: "Indonesia", en: "English" };
 
 function LangToggle() {
   const { lang, setLang } = useTranslation();
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="ml-1 flex items-center gap-1 text-[11px] uppercase tracking-[0.1em]">
-      <button
-        onClick={() => setLang("id")}
-        aria-label="Bahasa Indonesia"
-        className={cn("transition-colors", lang === "id" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
-      >
-        ID
-      </button>
-      <span className="text-ash">|</span>
-      <button
-        onClick={() => setLang("en")}
-        aria-label="English"
-        className={cn("transition-colors", lang === "en" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
-      >
-        EN
-      </button>
+    <div className="ml-1">
+      {/* Desktop — ID | EN text */}
+      <div className="hidden items-center gap-1 text-[11px] uppercase tracking-[0.1em] md:flex">
+        <button
+          onClick={() => setLang("id")}
+          aria-label="Bahasa Indonesia"
+          className={cn("transition-colors", lang === "id" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
+        >
+          ID
+        </button>
+        <span className="text-ash">|</span>
+        <button
+          onClick={() => setLang("en")}
+          aria-label="English"
+          className={cn("transition-colors", lang === "en" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
+        >
+          EN
+        </button>
+      </div>
+
+      {/* Mobile — flag button + dropdown (easier to tap) */}
+      <div className="relative md:hidden">
+        <button
+          onClick={() => setOpen((o) => !o)}
+          aria-label="Ganti bahasa / Change language"
+          aria-expanded={open}
+          className="flex items-center p-2 text-xl leading-none"
+        >
+          <span aria-hidden>{LANG_FLAG[lang]}</span>
+        </button>
+        {open && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden />
+            <div className="absolute right-0 top-full z-50 mt-1 min-w-[150px] overflow-hidden border border-ash bg-white shadow-[0_12px_30px_rgba(0,0,0,0.12)]">
+              {(["id", "en"] as Lang[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => {
+                    setLang(l);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm transition-colors",
+                    lang === l ? "text-gold" : "text-ivory hover:bg-void"
+                  )}
+                >
+                  <span className="text-lg leading-none" aria-hidden>{LANG_FLAG[l]}</span>
+                  <span>{LANG_NAME[l]}</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
