@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
 import { fontVariables } from "@/lib/fonts";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://luxafoir.com";
@@ -70,7 +71,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Toaster
           position="bottom-right"
           toastOptions={{

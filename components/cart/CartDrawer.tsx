@@ -9,6 +9,7 @@ import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import { useCart } from "@/hooks/useCart";
 import { useUIStore } from "@/stores/ui.store";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 /**
  * Slide-out bag. Auto-opens when an item is added (see useCart.addToCart),
@@ -19,6 +20,7 @@ export function CartDrawer() {
   const open = useUIStore((s) => s.cartOpen);
   const close = useUIStore((s) => s.closeCart);
   const { items, summary, updateQuantity, removeItem } = useCart();
+  const { t } = useTranslation();
 
   const empty = items.length === 0;
 
@@ -27,7 +29,7 @@ export function CartDrawer() {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-ash px-6 py-5">
         <h2 className="text-label uppercase tracking-label text-ivory">
-          Your Cart
+          {t("cart.yourCart")}
           {summary.itemCount > 0 && (
             <span className="ml-2 text-smoke">({summary.itemCount})</span>
           )}
@@ -45,13 +47,11 @@ export function CartDrawer() {
         <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
           <ShoppingBag className="size-10 text-ash" strokeWidth={1} />
           <div>
-            <p className="font-display text-2xl text-ivory">Your cart is empty</p>
-            <p className="mt-2 text-body text-smoke">
-              Pieces you add will appear here.
-            </p>
+            <p className="font-display text-2xl text-ivory">{t("cart.empty")}</p>
+            <p className="mt-2 text-body text-smoke">{t("cart.emptyHint")}</p>
           </div>
           <Button asChild variant="outline" size="md" onClick={close}>
-            <Link href="/shop">Shop the Collection</Link>
+            <Link href="/shop">{t("cart.shopCollection")}</Link>
           </Button>
         </div>
       ) : (
@@ -79,14 +79,14 @@ export function CartDrawer() {
             <CartSummary summary={summary} />
             <Button asChild variant="solid" size="full" className="mt-6">
               <Link href="/checkout" onClick={close}>
-                Proceed to Checkout
+                {t("cart.checkout")}
               </Link>
             </Button>
             <button
               onClick={close}
               className="mt-4 w-full text-center text-label uppercase tracking-label text-smoke transition-colors hover:text-ivory"
             >
-              Continue Shopping
+              {t("cart.continueShopping")}
             </button>
           </motion.div>
         </>

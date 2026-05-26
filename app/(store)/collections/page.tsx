@@ -19,11 +19,11 @@ export default function CollectionsPage() {
         description="Each collection is a complete idea — a season, a mood, a discipline."
       />
 
-      <div className="mx-auto mt-14 grid max-w-site grid-cols-1 gap-px md:grid-cols-2">
+      <div className="mx-auto mt-14 grid max-w-site grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-px px-site md:px-10 lg:px-16">
         {COLLECTIONS.map((c, i) => (
-          <Reveal key={c.id} delay={(i % 2) * 0.1}>
-            <Link href={`/collections/${c.slug}`} className="group relative block">
-              <div className="relative aspect-[4/5] overflow-hidden bg-charcoal md:aspect-[3/2]">
+          <Reveal key={c.id} delay={i * 0.08}>
+            <Link href={`/collections/${c.slug}`} className="group relative block h-full">
+              <div className="relative aspect-[3/4] h-full overflow-hidden bg-charcoal">
                 <ImageWithBlur
                   src={c.image ?? ""}
                   alt={c.name}

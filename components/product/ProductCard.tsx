@@ -6,6 +6,7 @@ import { ImageWithBlur } from "@/components/ui/ImageWithBlur";
 import { Badge } from "@/components/ui/Badge";
 import { WishlistButton } from "@/components/shared/WishlistButton";
 import { useUIStore } from "@/stores/ui.store";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -19,6 +20,7 @@ const NEW_TAG = "new";
 
 export function ProductCard({ product, priority, className }: ProductCardProps) {
   const openQuickView = useUIStore((s) => s.openQuickView);
+  const { t } = useTranslation();
 
   const soldOut = product.variants.length > 0 && product.variants.every((v) => v.stock === 0);
   const discount = discountPercent(product.price, product.comparePrice);
@@ -62,7 +64,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
           {/* Badges */}
           <div className="absolute left-3 top-3 z-10 flex flex-col gap-1.5">
             {discount && !soldOut && <Badge variant="sale">−{discount}%</Badge>}
-            {isNew && !soldOut && <Badge variant="new">New</Badge>}
+            {isNew && !soldOut && <Badge variant="new">{t("product.new")}</Badge>}
           </div>
 
           {/* Wishlist */}
@@ -74,7 +76,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
           {soldOut && (
             <div className="absolute inset-0 z-10 flex items-center justify-center bg-[rgba(0,0,0,0.5)]">
               <span className="text-label uppercase tracking-widest text-white">
-                Sold Out
+                {t("product.soldOut")}
               </span>
             </div>
           )}
@@ -89,7 +91,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
               }}
               className="absolute inset-x-0 bottom-0 z-10 hidden translate-y-full bg-[#0A0A0A] py-3.5 text-label uppercase tracking-label text-white transition-transform duration-300 ease-out-expo group-hover:translate-y-0 md:block"
             >
-              Quick View
+              {t("product.quickView")}
             </button>
           )}
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { ProductCard } from "@/components/product/ProductCard";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product } from "@/types/product";
 
 interface ProductGridProps {
@@ -27,11 +28,12 @@ export function ProductGrid({
   label,
   title,
   viewAllHref,
-  viewAllLabel = "View All",
+  viewAllLabel = "home.viewAll",
   limit,
   priorityFirst = false,
   className,
 }: ProductGridProps) {
+  const { t } = useTranslation();
   const list = limit ? products.slice(0, limit) : products;
 
   return (
@@ -40,10 +42,10 @@ export function ProductGrid({
         <Reveal className="mb-10 flex items-end justify-between gap-4">
           <div>
             {label && (
-              <p className="text-label uppercase tracking-label text-gold">{label}</p>
+              <p className="text-label uppercase tracking-label text-gold">{t(label)}</p>
             )}
             {title && (
-              <h2 className="mt-3 font-display text-h2 font-normal text-ivory">{title}</h2>
+              <h2 className="mt-3 font-display text-h2 font-normal text-ivory">{t(title)}</h2>
             )}
           </div>
           {viewAllHref && (
@@ -51,7 +53,7 @@ export function ProductGrid({
               href={viewAllHref}
               className="link-underline hidden shrink-0 text-label uppercase tracking-label text-ivory md:inline-block"
             >
-              {viewAllLabel}
+              {t(viewAllLabel)}
             </Link>
           )}
         </Reveal>

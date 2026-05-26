@@ -107,7 +107,7 @@ export function NewsletterPopup() {
             {/* Editorial image */}
             <div className="relative hidden aspect-[3/4] bg-charcoal md:block">
               <ImageWithBlur
-                src="https://images.unsplash.com/photo-1618354691438-25bc04584c23?auto=format&fit=crop&w=800&h=1000&q=80"
+                src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&h=1000&q=80"
                 alt="LUXAFOIR"
                 fill
                 sizes="50vw"

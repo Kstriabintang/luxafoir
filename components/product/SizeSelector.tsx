@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { SIZE_ORDER } from "@/lib/constants";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { ProductVariant } from "@/types/product";
 
 interface SizeSelectorProps {
@@ -27,17 +28,18 @@ export function SizeSelector({
   onOpenSizeGuide,
   className,
 }: SizeSelectorProps) {
+  const { t } = useTranslation();
   return (
     <div className={cn("flex flex-col gap-3", className)}>
       <div className="flex items-center justify-between">
-        <span className="text-label uppercase tracking-label text-mist">Size</span>
+        <span className="text-label uppercase tracking-label text-mist">{t("pdp.size")}</span>
         {onOpenSizeGuide && (
           <button
             type="button"
             onClick={onOpenSizeGuide}
             className="text-label uppercase tracking-label text-smoke underline-offset-4 transition-colors hover:text-gold hover:underline"
           >
-            Size Guide
+            {t("shop.sizeGuide")}
           </button>
         )}
       </div>

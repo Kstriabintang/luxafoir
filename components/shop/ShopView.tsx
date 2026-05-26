@@ -10,15 +10,16 @@ import { Button } from "@/components/ui/Button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductGridSkeleton } from "@/components/ui/ProductCardSkeleton";
 import { SIZE_ORDER } from "@/lib/constants";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product, SortOption } from "@/types/product";
 
 const PAGE_SIZE = 8;
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-  { value: "newest", label: "Newest" },
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
-  { value: "best-selling", label: "Best Selling" },
+  { value: "newest", label: "sort.newest" },
+  { value: "price-asc", label: "sort.priceAsc" },
+  { value: "price-desc", label: "sort.priceDesc" },
+  { value: "best-selling", label: "sort.bestSelling" },
 ];
 
 interface ShopViewProps {
@@ -36,6 +37,7 @@ export function ShopView({
   initialSort = "newest",
   showCategoryFilter = true,
 }: ShopViewProps) {
+  const { t } = useTranslation();
   // ── Derived option sets ─────────────────────────────
   const priceBounds = useMemo(() => {
     const prices = products.map((p) => p.price);
@@ -156,7 +158,7 @@ export function ShopView({
             className="inline-flex items-center gap-2 text-label uppercase tracking-label text-ivory transition-colors hover:text-gold"
           >
             <SlidersHorizontal className="size-4" strokeWidth={1.5} />
-            Filters
+            {t("shop.filters")}
             {activeCount > 0 && (
               <span className="flex size-5 items-center justify-center rounded-full bg-gold font-mono text-[10px] text-obsidian">
                 {activeCount}
@@ -165,7 +167,7 @@ export function ShopView({
           </button>
 
           <p className="hidden text-caption text-smoke sm:block">
-            {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+            {filtered.length} {filtered.length === 1 ? t("shop.piece") : t("shop.pieces")}
           </p>
 
           {/* Sort dropdown */}
@@ -175,7 +177,7 @@ export function ShopView({
               onBlur={() => setTimeout(() => setSortOpen(false), 150)}
               className="inline-flex items-center gap-2 text-label uppercase tracking-label text-ivory transition-colors hover:text-gold"
             >
-              {activeSortLabel}
+              {activeSortLabel ? t(activeSortLabel) : ""}
               <ChevronDown
                 className={cn("size-4 transition-transform", sortOpen && "rotate-180")}
                 strokeWidth={1.5}
@@ -202,7 +204,7 @@ export function ShopView({
                           sort === opt.value ? "text-gold" : "text-mist"
                         )}
                       >
-                        {opt.label}
+                        {t(opt.label)}
                         {sort === opt.value && <Check className="size-3.5" />}
                       </button>
                     </li>
@@ -237,13 +239,13 @@ export function ShopView({
               />
             )}
             {inStockOnly && (
-              <FilterChip label="In stock" onRemove={() => setInStockOnly(false)} />
+              <FilterChip label={t("shop.inStock")} onRemove={() => setInStockOnly(false)} />
             )}
             <button
               onClick={clearAll}
               className="ml-1 text-caption uppercase tracking-wide text-smoke underline-offset-4 transition-colors hover:text-gold hover:underline"
             >
-              Clear all
+              {t("shop.clearAll")}
             </button>
           </div>
         )}
@@ -253,12 +255,12 @@ export function ShopView({
       <div className="mx-auto max-w-site px-site py-12">
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-32 text-center">
-            <p className="font-display text-3xl text-ivory">No pieces found</p>
+            <p className="font-display text-3xl text-ivory">{t("shop.noResults")}</p>
             <p className="mt-3 text-body text-smoke">
               Try adjusting your filters to see more.
             </p>
             <Button variant="outline" size="md" className="mt-8" onClick={clearAll}>
-              Clear Filters
+              {t("shop.clearAll")}
             </Button>
           </div>
         ) : (
@@ -283,7 +285,7 @@ export function ShopView({
       {/* ── Filter drawer ── */}
       <Drawer open={filtersOpen} onClose={() => setFiltersOpen(false)} side="left" label="Filters">
         <div className="flex items-center justify-between border-b border-ash px-6 py-5">
-          <h2 className="text-label uppercase tracking-label text-ivory">Filters</h2>
+          <h2 className="text-label uppercase tracking-label text-ivory">{t("shop.filters")}</h2>
           <button
             onClick={() => setFiltersOpen(false)}
             aria-label="Close filters"
@@ -295,7 +297,7 @@ export function ShopView({
 
         <div className="flex-1 overflow-y-auto px-6 py-6">
           {showCategoryFilter && categories.length > 0 && (
-            <FilterGroup title="Category">
+            <FilterGroup title={t("shop.category")}>
               {categories.map((c) => (
                 <CheckRow
                   key={c.slug}
@@ -307,7 +309,7 @@ export function ShopView({
             </FilterGroup>
           )}
 
-          <FilterGroup title="Size">
+          <FilterGroup title={t("shop.size")}>
             <div className="flex flex-wrap gap-2">
               {sizes.map((s) => (
                 <button
@@ -326,7 +328,7 @@ export function ShopView({
             </div>
           </FilterGroup>
 
-          <FilterGroup title="Price">
+          <FilterGroup title={t("shop.price")}>
             <Slider
               value={price}
               min={priceBounds[0]}
@@ -342,9 +344,9 @@ export function ShopView({
             </div>
           </FilterGroup>
 
-          <FilterGroup title="Availability">
+          <FilterGroup title={t("shop.availability")}>
             <CheckRow
-              label="In stock only"
+              label={t("shop.inStock")}
               checked={inStockOnly}
               onChange={() => setInStockOnly((v) => !v)}
             />

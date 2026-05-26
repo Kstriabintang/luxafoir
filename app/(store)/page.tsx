@@ -25,8 +25,8 @@ export default function HomePage() {
 
       <ProductGrid
         className="py-20 md:py-28"
-        label="Featured"
-        title="The Distinct Edit"
+        label="home.featured"
+        title="home.featuredTitle"
         viewAllHref="/shop"
         products={featured}
         limit={4}
@@ -37,8 +37,8 @@ export default function HomePage() {
 
       <ProductGrid
         className="py-20 md:py-28"
-        label="Just In"
-        title="New Arrivals"
+        label="home.justIn"
+        title="home.newArrivals"
         viewAllHref="/shop?sort=newest"
         products={newArrivals}
         limit={8}

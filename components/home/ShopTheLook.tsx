@@ -8,6 +8,7 @@ import { ImageWithBlur } from "@/components/ui/ImageWithBlur";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn, formatIDR } from "@/lib/utils";
 import { useUIStore } from "@/stores/ui.store";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product } from "@/types/product";
 
 interface Hotspot {
@@ -31,6 +32,7 @@ const POSITIONS = [
 
 export function ShopTheLook({ image, products }: ShopTheLookProps) {
   const openQuickView = useUIStore((s) => s.openQuickView);
+  const { t } = useTranslation();
   const [active, setActive] = useState<string | null>(null);
 
   const hotspots: Hotspot[] = products.slice(0, POSITIONS.length).map((product, i) => ({
@@ -41,16 +43,16 @@ export function ShopTheLook({ image, products }: ShopTheLookProps) {
   return (
     <section className="mx-auto max-w-site px-site py-20 md:py-28">
       <Reveal className="mb-10 text-center">
-        <p className="text-label uppercase tracking-label text-gold">Shop the Look</p>
+        <p className="text-label uppercase tracking-label text-gold">{t("home.shopTheLook")}</p>
         <h2 className="mt-3 font-display text-h2 font-normal text-ivory">
-          Styled with Intent
+          {t("home.styledWithIntent")}
         </h2>
       </Reveal>
 
       <Reveal delay={0.1}>
         <div className="relative mx-auto aspect-[4/5] w-full max-w-3xl overflow-hidden bg-charcoal md:aspect-[16/10]">
           <ImageWithBlur
-            src={image ?? "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1600&h=1000&q=80"}
+            src={image ?? "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&h=1000&q=80"}
             alt="Shop the look"
             fill
             sizes="(max-width: 768px) 100vw, 768px"
@@ -112,7 +114,7 @@ export function ShopTheLook({ image, products }: ShopTheLookProps) {
                           onClick={() => openQuickView(product.slug)}
                           className="flex-1 bg-gold py-2 text-[10px] uppercase tracking-label text-obsidian transition-colors hover:bg-gold-bright"
                         >
-                          Quick View
+                          {t("product.quickView")}
                         </button>
                         <Link
                           href={`/product/${product.slug}`}

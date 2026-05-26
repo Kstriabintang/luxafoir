@@ -1,36 +1,36 @@
 /** Free shipping kicks in above this subtotal (IDR). */
 export const FREE_SHIPPING_THRESHOLD = 500_000;
 
-/** Primary navigation — used by Navbar + MobileMenu. */
+/** Primary navigation — used by Navbar + MobileMenu. `tKey` = i18n key. */
 export const NAV_LINKS = [
-  { label: "Shop", href: "/shop" },
-  { label: "Collections", href: "/collections" },
-  { label: "Sale", href: "/shop/sale" },
-  { label: "Journal", href: "/journal" },
-  { label: "About", href: "/about" },
+  { label: "Shop", tKey: "nav.shop", href: "/shop" },
+  { label: "Collections", tKey: "nav.collections", href: "/collections" },
+  { label: "Sale", tKey: "nav.sale", href: "/shop/sale" },
+  { label: "Journal", tKey: "nav.journal", href: "/journal" },
+  { label: "About", tKey: "nav.about", href: "/about" },
 ] as const;
 
 /** Footer link columns. */
 export const FOOTER_LINKS = {
   shop: [
-    { label: "All Products", href: "/shop" },
-    { label: "Collections", href: "/collections" },
-    { label: "Sale", href: "/shop/sale" },
-    { label: "New Arrivals", href: "/shop?sort=newest" },
+    { label: "All Products", tKey: "footer.allProducts", href: "/shop" },
+    { label: "Collections", tKey: "footer.collections", href: "/collections" },
+    { label: "Sale", tKey: "footer.sale", href: "/shop/sale" },
+    { label: "New Arrivals", tKey: "footer.newArrivals", href: "/shop?sort=newest" },
   ],
   info: [
-    { label: "About", href: "/about" },
-    { label: "Journal", href: "/journal" },
-    { label: "Sustainability", href: "/about#sustainability" },
-    { label: "Size Guide", href: "/size-guide" },
+    { label: "About", tKey: "footer.about", href: "/about" },
+    { label: "Journal", tKey: "footer.journal", href: "/journal" },
+    { label: "Sustainability", tKey: "footer.sustainability", href: "/about#sustainability" },
+    { label: "Size Guide", tKey: "footer.sizeGuide", href: "/size-guide" },
   ],
   support: [
-    { label: "Contact", href: "/contact" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Shipping Policy", href: "/shipping" },
-    { label: "Return Policy", href: "/returns" },
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms & Conditions", href: "/terms" },
+    { label: "Contact", tKey: "footer.contact", href: "/contact" },
+    { label: "FAQ", tKey: "footer.faq", href: "/faq" },
+    { label: "Shipping Policy", tKey: "footer.shippingPolicy", href: "/shipping" },
+    { label: "Return Policy", tKey: "footer.returnPolicy", href: "/returns" },
+    { label: "Privacy Policy", tKey: "footer.privacy", href: "/privacy-policy" },
+    { label: "Terms & Conditions", tKey: "footer.terms", href: "/terms" },
   ],
 } as const;
 

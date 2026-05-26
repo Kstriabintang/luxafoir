@@ -10,6 +10,30 @@ import { NAV_LINKS } from "@/lib/constants";
 import { useUIStore } from "@/stores/ui.store";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
+
+function LangToggle() {
+  const { lang, setLang } = useTranslation();
+  return (
+    <div className="ml-1 flex items-center gap-1 text-[11px] uppercase tracking-[0.1em]">
+      <button
+        onClick={() => setLang("id")}
+        aria-label="Bahasa Indonesia"
+        className={cn("transition-colors", lang === "id" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
+      >
+        ID
+      </button>
+      <span className="text-ash">|</span>
+      <button
+        onClick={() => setLang("en")}
+        aria-label="English"
+        className={cn("transition-colors", lang === "en" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
 
 function CountBadge({ count }: { count: number }) {
   return (
@@ -40,6 +64,7 @@ export function Navbar() {
 
   const { summary } = useCart();
   const { count: wishlistCount } = useWishlist();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -70,7 +95,7 @@ export function Navbar() {
           </button>
           <Link
             href="/"
-            className="hidden font-display text-[28px] italic leading-none tracking-tight text-ivory transition-colors hover:text-gold md:block"
+            className="hidden font-display text-[28px] font-bold italic leading-none tracking-tight text-ivory transition-colors hover:text-gold md:block"
           >
             LUXAFOIR
           </Link>
@@ -80,7 +105,7 @@ export function Navbar() {
         <div className="flex items-center justify-center">
           <Link
             href="/"
-            className="font-display text-2xl italic leading-none tracking-tight text-ivory md:hidden"
+            className="font-display text-2xl font-bold italic leading-none tracking-tight text-ivory md:hidden"
           >
             LUXAFOIR
           </Link>
@@ -92,7 +117,7 @@ export function Navbar() {
                   data-active={isActive(link.href)}
                   className="link-underline text-label uppercase tracking-label text-ivory/90 transition-colors hover:text-ivory data-[active=true]:text-gold"
                 >
-                  {link.label}
+                  {t(link.tKey)}
                 </Link>
               </li>
             ))}
@@ -124,6 +149,7 @@ export function Navbar() {
             <ShoppingBag className="size-5" strokeWidth={1.5} />
             <CountBadge count={summary.itemCount} />
           </button>
+          <LangToggle />
         </div>
       </nav>
     </header>

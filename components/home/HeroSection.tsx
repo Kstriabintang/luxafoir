@@ -29,7 +29,7 @@ const SLIDES: Slide[] = [
     secondary: { label: "New Arrivals", href: "/shop?sort=newest" },
   },
   {
-    image: hero("1556821840-3a63f15732ce"),
+    image: hero("1521572163474-6864f9cf17ab"),
     label: "Heavyweight",
     headline: "Weight &\nStructure",
     subtext: "Oversized silhouettes in premium heavyweight fleece and cotton.",

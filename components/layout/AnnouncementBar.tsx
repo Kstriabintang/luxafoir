@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { ANNOUNCEMENT_TEXT, ANNOUNCEMENT_DISMISS_KEY } from "@/lib/constants";
+import { ANNOUNCEMENT_DISMISS_KEY } from "@/lib/constants";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 /**
  * Top promo bar. Static centered text on desktop, an auto-scrolling marquee
@@ -11,6 +12,8 @@ import { ANNOUNCEMENT_TEXT, ANNOUNCEMENT_DISMISS_KEY } from "@/lib/constants";
  */
 export function AnnouncementBar() {
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
+  const ANNOUNCEMENT_TEXT = t("announce");
 
   useEffect(() => {
     const dismissed = localStorage.getItem(ANNOUNCEMENT_DISMISS_KEY) === "true";

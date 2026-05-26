@@ -9,11 +9,18 @@ import type { Product, Category, Collection } from "@/types/product";
 // Unsplash clothing photo IDs (apparel only — no landscapes/abstract).
 const PHOTOS = {
   tshirt: ["1583743814966-8936f5b7be1a", "1618354691438-25bc04584c23", "1521572163474-6864f9cf17ab"],
-  hoodie: ["1509942774463-acf339cf87d5", "1556821840-3a63f15732ce"],
+  hoodie: ["1509942774463-acf339cf87d5", "1539109136881-3be0616acf4b"],
   pants: ["1624378439575-d8705ad7ae80", "1473966968600-fa801b869a1a"],
 } as const;
 
-const u = (id: string) =>
+// Editorial / textile imagery for collection features.
+const EDITORIAL = {
+  textile: "1558769132-cb1aea458c5e",
+  fabric: "1576566588028-4147f3842f27",
+  lookbook: "1490481651871-ab68de25d43d",
+} as const;
+
+export const u = (id: string) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&h=1200&q=80`;
 
 // Two-image set per product (front + alternate) for the hover swap.
@@ -34,7 +41,7 @@ export const COLLECTIONS: Collection[] = [
     name: "Essentials",
     slug: "distinct-001",
     description: "The core line. Heavyweight cotton staples built to be worn every day.",
-    image: u(PHOTOS.tshirt[0]),
+    image: u(EDITORIAL.lookbook),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -44,7 +51,7 @@ export const COLLECTIONS: Collection[] = [
     name: "Heavyweight",
     slug: "obsidian-hour",
     description: "Oversized silhouettes in premium heavyweight fabric. Structured, considered.",
-    image: u(PHOTOS.hoodie[0]),
+    image: u(EDITORIAL.fabric),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -54,7 +61,7 @@ export const COLLECTIONS: Collection[] = [
     name: "Utility",
     slug: "monsoon",
     description: "Technical streetwear shaped for the city — function as form.",
-    image: u(PHOTOS.pants[0]),
+    image: u(EDITORIAL.textile),
     isActive: true,
     startDate: null,
     endDate: null,

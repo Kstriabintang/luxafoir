@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product } from "@/types/product";
 
 interface RelatedProductsProps {
@@ -12,7 +13,8 @@ interface RelatedProductsProps {
   title?: string;
 }
 
-export function RelatedProducts({ products, title = "You Might Also Like" }: RelatedProductsProps) {
+export function RelatedProducts({ products, title = "pdp.related" }: RelatedProductsProps) {
+  const { t } = useTranslation();
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", dragFree: true });
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
@@ -35,7 +37,7 @@ export function RelatedProducts({ products, title = "You Might Also Like" }: Rel
   return (
     <section className="mx-auto max-w-site px-site py-20">
       <div className="mb-8 flex items-end justify-between">
-        <h2 className="font-display text-h3 font-normal text-ivory">{title}</h2>
+        <h2 className="font-display text-h3 font-normal text-ivory">{t(title)}</h2>
         <div className="hidden gap-2 md:flex">
           <CarouselButton dir="prev" disabled={!canPrev} onClick={() => emblaApi?.scrollPrev()} />
           <CarouselButton dir="next" disabled={!canNext} onClick={() => emblaApi?.scrollNext()} />

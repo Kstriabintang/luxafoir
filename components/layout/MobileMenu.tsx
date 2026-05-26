@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 import { useUIStore } from "@/stores/ui.store";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -23,6 +24,7 @@ export function MobileMenu() {
   const pathname = usePathname();
   const open = useUIStore((s) => s.mobileMenuOpen);
   const close = useUIStore((s) => s.closeMobileMenu);
+  const { t } = useTranslation();
 
   // Close on route change.
   useEffect(() => {
@@ -71,7 +73,7 @@ export function MobileMenu() {
                   onClick={close}
                   className="block font-display text-5xl font-light text-ivory transition-colors hover:text-gold"
                 >
-                  {link.label}
+                  {t(link.tKey)}
                 </Link>
               </motion.li>
             ))}

@@ -23,5 +23,5 @@ export function RecentlyViewed({ currentId }: { currentId: string }) {
 
   if (products.length === 0) return null;
 
-  return <RelatedProducts products={products} title="Recently Viewed" />;
+  return <RelatedProducts products={products} title="pdp.recentlyViewed" />;
 }

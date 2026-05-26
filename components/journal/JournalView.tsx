@@ -6,11 +6,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ImageWithBlur } from "@/components/ui/ImageWithBlur";
 import { cn } from "@/lib/utils";
 import { JOURNAL_CATEGORIES, type JournalArticle } from "@/lib/journal-data";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
 
+const CAT_KEY: Record<string, string> = {
+  All: "journal.all",
+  Collections: "journal.collectionsCat",
+  "Behind the Brand": "journal.behindBrand",
+  "Style Guide": "journal.styleGuide",
+};
+
 export function JournalView({ articles }: { articles: JournalArticle[] }) {
+  const { t } = useTranslation();
   const [category, setCategory] = useState<(typeof JOURNAL_CATEGORIES)[number]>("All");
 
   const filtered =
@@ -18,6 +27,15 @@ export function JournalView({ articles }: { articles: JournalArticle[] }) {
 
   return (
     <div className="mx-auto max-w-site px-site py-12">
+      {/* Header */}
+      <header className="mb-12 text-center">
+        <p className="text-label uppercase tracking-label text-gold">{t("journal.theJournal")}</p>
+        <h1 className="mt-4 font-display text-h1 font-light text-[#0A0A0A]">
+          {t("journal.storiesCraft")}
+        </h1>
+        <p className="mx-auto mt-5 max-w-xl text-body text-mist">{t("journal.dispatches")}</p>
+      </header>
+
       {/* Category filter */}
       <div className="flex flex-wrap justify-center gap-2 border-y border-ash py-5">
         {JOURNAL_CATEGORIES.map((cat) => (
@@ -29,7 +47,7 @@ export function JournalView({ articles }: { articles: JournalArticle[] }) {
               category === cat ? "text-gold" : "text-smoke hover:text-ivory"
             )}
           >
-            {cat}
+            {t(CAT_KEY[cat] ?? cat)}
           </button>
         ))}
       </div>
@@ -66,7 +84,7 @@ export function JournalView({ articles }: { articles: JournalArticle[] }) {
                   className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-105"
                 />
               </div>
-              <p className="mt-5 text-label uppercase tracking-label text-gold">{article.category}</p>
+              <p className="mt-5 text-label uppercase tracking-label text-gold">{t(CAT_KEY[article.category] ?? article.category)}</p>
               <h2
                 className={cn(
                   "mt-3 font-display font-normal text-ivory transition-colors group-hover:text-gold",
@@ -77,7 +95,7 @@ export function JournalView({ articles }: { articles: JournalArticle[] }) {
               </h2>
               <p className="mt-2 max-w-2xl text-body text-mist">{article.excerpt}</p>
               <p className="mt-4 text-caption text-smoke">
-                {formatDate(article.date)} · {article.readingMinutes} min read
+                {formatDate(article.date)} · {article.readingMinutes} {t("journal.minRead")}
               </p>
             </Link>
           ))}

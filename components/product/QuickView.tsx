@@ -13,6 +13,7 @@ import { QuantitySelector } from "./QuantitySelector";
 import { WishlistButton } from "@/components/shared/WishlistButton";
 import { useUIStore } from "@/stores/ui.store";
 import { useCart } from "@/hooks/useCart";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import { getProductBySlug } from "@/lib/mock-data";
 import type { ProductVariant } from "@/types/product";
 
@@ -20,6 +21,7 @@ export function QuickView() {
   const slug = useUIStore((s) => s.quickViewSlug);
   const close = useUIStore((s) => s.closeQuickView);
   const { addToCart } = useCart();
+  const { t } = useTranslation();
 
   const product = slug ? getProductBySlug(slug) : null;
 
@@ -128,7 +130,7 @@ export function QuickView() {
                 max={variant?.stock ?? 99}
               />
               <Button variant="solid" size="md" className="flex-1" onClick={handleAdd}>
-                Add to Cart
+                {t("product.addToCart")}
               </Button>
             </div>
 

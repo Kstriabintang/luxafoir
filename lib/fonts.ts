@@ -3,7 +3,7 @@ import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google";
 /** Display — headings, hero, editorial moments */
 export const fontDisplay = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",

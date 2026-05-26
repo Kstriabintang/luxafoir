@@ -4,27 +4,29 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { ImageWithBlur } from "@/components/ui/ImageWithBlur";
 import { JOURNAL_ARTICLES } from "@/lib/journal-data";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
 
 export function JournalSection() {
+  const { t } = useTranslation();
   const articles = JOURNAL_ARTICLES.slice(0, 3);
 
   return (
     <section className="mx-auto max-w-site px-site py-20 md:py-28">
       <Reveal className="mb-10 flex items-end justify-between gap-4">
         <div>
-          <p className="text-label uppercase tracking-label text-gold">The Journal</p>
+          <p className="text-label uppercase tracking-label text-gold">{t("home.theJournal")}</p>
           <h2 className="mt-3 font-display text-h2 font-normal text-ivory">
-            Stories & Craft
+            {t("home.storiesCraft")}
           </h2>
         </div>
         <Link
           href="/journal"
           className="link-underline hidden shrink-0 text-label uppercase tracking-label text-ivory md:inline-block"
         >
-          All Stories
+          {t("home.allStories")}
         </Link>
       </Reveal>
 

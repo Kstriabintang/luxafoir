@@ -19,11 +19,13 @@ import { QuantitySelector } from "./QuantitySelector";
 import { WishlistButton } from "@/components/shared/WishlistButton";
 import { SizeGuideModal } from "@/components/shared/SizeGuideModal";
 import { useCart } from "@/hooks/useCart";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 import type { Product, ProductVariant } from "@/types/product";
 
 export function ProductInfo({ product }: { product: Product }) {
   const router = useRouter();
   const { addToCart, addItem } = useCart();
+  const { t } = useTranslation();
 
   const [variant, setVariant] = useState<ProductVariant | null>(null);
   const [qty, setQty] = useState(1);
@@ -118,9 +120,9 @@ export function ProductInfo({ product }: { product: Product }) {
 
       {soldOut ? (
         <div className="flex flex-col gap-4">
-          <p className="text-label uppercase tracking-label text-smoke">Sold Out</p>
+          <p className="text-label uppercase tracking-label text-smoke">{t("product.soldOut")}</p>
           <Button variant="dark" size="full" onClick={() => toast.success("We'll notify you when it's back")}>
-            Notify Me When Available
+            {t("product.notifyMe")}
           </Button>
         </div>
       ) : (
@@ -142,11 +144,11 @@ export function ProductInfo({ product }: { product: Product }) {
                 onClick={handleAdd}
                 className="flex-1"
               >
-                Add to Cart
+                {t("product.addToCart")}
               </Button>
             </div>
             <Button variant="solid" size="full" onClick={handleBuyNow}>
-              Buy It Now
+              {t("product.buyNow")}
             </Button>
           </div>
 
@@ -157,7 +159,7 @@ export function ProductInfo({ product }: { product: Product }) {
               className="inline-flex items-center gap-2 text-label uppercase tracking-label text-smoke transition-colors hover:text-gold"
             >
               <Share2 className="size-4" strokeWidth={1.5} />
-              Share
+              {t("pdp.share")}
             </button>
           </div>
         </>
@@ -166,24 +168,24 @@ export function ProductInfo({ product }: { product: Product }) {
       {/* Free shipping note */}
       <div className="mt-7 flex items-center gap-3 border border-ash px-4 py-3 text-caption text-mist">
         <Truck className="size-4 shrink-0 text-gold" strokeWidth={1.5} />
-        Free shipping on orders above Rp500.000
+        {t("pdp.freeShipping")}
       </div>
 
       {/* Accordions */}
       <Accordion type="single" collapsible defaultValue="description" className="mt-8">
         <AccordionItem value="description">
-          <AccordionTrigger>Description</AccordionTrigger>
+          <AccordionTrigger>{t("pdp.description")}</AccordionTrigger>
           <AccordionContent>{product.description}</AccordionContent>
         </AccordionItem>
         <AccordionItem value="material">
-          <AccordionTrigger>Material</AccordionTrigger>
+          <AccordionTrigger>{t("pdp.material")}</AccordionTrigger>
           <AccordionContent>
             Premium-grade fabrication, sourced responsibly. Composition varies by piece;
             see the woven label for full details.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="care">
-          <AccordionTrigger>Care Instructions</AccordionTrigger>
+          <AccordionTrigger>{t("pdp.care")}</AccordionTrigger>
           <AccordionContent>
             <ul className="flex flex-col gap-2">
               {["Dry clean recommended", "Cool iron if needed", "Do not tumble dry", "Store on a hanger"].map(
@@ -197,7 +199,7 @@ export function ProductInfo({ product }: { product: Product }) {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="shipping">
-          <AccordionTrigger>Shipping & Returns</AccordionTrigger>
+          <AccordionTrigger>{t("pdp.shipping")}</AccordionTrigger>
           <AccordionContent>
             Dispatched within 1–2 business days. Free returns within 14 days on unworn pieces
             with tags attached.

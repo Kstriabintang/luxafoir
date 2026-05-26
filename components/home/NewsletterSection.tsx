@@ -6,8 +6,10 @@ import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { subscribeEmail } from "@/lib/newsletter";
+import { useTranslation } from "@/components/i18n/LanguageProvider";
 
 export function NewsletterSection() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -33,16 +35,16 @@ export function NewsletterSection() {
     <section className="relative overflow-hidden border-t border-ash bg-[#F8F7F5]">
       <div className="relative mx-auto max-w-3xl px-site py-24 text-center md:py-32">
         <Reveal>
-          <p className="text-label uppercase tracking-label text-gold">The List</p>
+          <p className="text-label uppercase tracking-label text-gold">{t("home.theList")}</p>
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="mt-4 font-display text-h1 font-light italic text-ivory">
-            Stay in the know
+            {t("home.stayInKnow")}
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="mx-auto mt-5 max-w-md text-body text-mist">
-            Be first to new collections, private sales, and the stories behind the craft.
+            {t("home.newsletterSub")}
           </p>
         </Reveal>
 
@@ -57,9 +59,7 @@ export function NewsletterSection() {
               <span className="flex size-12 items-center justify-center rounded-full border border-success text-success">
                 <Check className="size-6" strokeWidth={1.5} />
               </span>
-              <p className="text-body text-ivory">
-                You&apos;re on the list. Welcome to LUXAFOIR.
-              </p>
+              <p className="text-body text-ivory">{t("home.subscribed")}</p>
             </motion.div>
           ) : (
             <form onSubmit={submit} className="mx-auto mt-10 flex max-w-md flex-col gap-2">
@@ -72,7 +72,7 @@ export function NewsletterSection() {
                     setEmail(e.target.value);
                     if (status === "error") setStatus("idle");
                   }}
-                  placeholder="Email address"
+                  placeholder={t("home.emailPlaceholder")}
                   className="w-full bg-transparent py-3 font-body text-body text-ivory placeholder:text-smoke focus:outline-none"
                 />
                 <button
