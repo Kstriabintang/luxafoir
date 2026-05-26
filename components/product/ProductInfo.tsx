@@ -180,29 +180,32 @@ export function ProductInfo({ product }: { product: Product }) {
         <AccordionItem value="material">
           <AccordionTrigger>{t("pdp.material")}</AccordionTrigger>
           <AccordionContent>
-            Premium-grade fabrication, sourced responsibly. Composition varies by piece;
-            see the woven label for full details.
+            {product.material ??
+              "Bahan premium, dipilih dengan teliti. Komposisi tiap potong bisa beda — cek label jahit untuk detail lengkapnya."}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="care">
           <AccordionTrigger>{t("pdp.care")}</AccordionTrigger>
           <AccordionContent>
             <ul className="flex flex-col gap-2">
-              {["Dry clean recommended", "Cool iron if needed", "Do not tumble dry", "Store on a hanger"].map(
-                (line) => (
-                  <li key={line} className="flex items-center gap-2">
-                    <Check className="size-3.5 text-gold" /> {line}
-                  </li>
-                )
-              )}
+              {[
+                "Cuci dengan air dingin, balik dalam (terutama yang sablon)",
+                "Jangan pakai pemutih",
+                "Jemur di tempat teduh, jangan langsung kena matahari",
+                "Setrika suhu sedang, hindari area sablon",
+              ].map((line) => (
+                <li key={line} className="flex items-center gap-2">
+                  <Check className="size-3.5 shrink-0 text-gold" /> {line}
+                </li>
+              ))}
             </ul>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="shipping">
           <AccordionTrigger>{t("pdp.shipping")}</AccordionTrigger>
           <AccordionContent>
-            Dispatched within 1–2 business days. Free returns within 14 days on unworn pieces
-            with tags attached.
+            Dikirim dalam 1–2 hari kerja ke seluruh Indonesia. Retur gratis dalam 14 hari untuk
+            barang yang belum dipakai dan label masih utuh.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

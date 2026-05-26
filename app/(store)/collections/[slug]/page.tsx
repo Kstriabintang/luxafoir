@@ -51,10 +51,12 @@ export default function CollectionPage({ params }: Params) {
             as="h1"
             text={collection.name}
             delay={0.1}
-            className="mt-4 font-display text-hero font-light italic text-white"
+            className="mt-4 font-display text-hero font-light italic text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]"
           />
           {collection.description && (
-            <p className="mt-5 max-w-lg text-body text-white/80">{collection.description}</p>
+            <p className="mt-5 max-w-lg text-body text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+              {collection.description}
+            </p>
           )}
         </div>
       </section>

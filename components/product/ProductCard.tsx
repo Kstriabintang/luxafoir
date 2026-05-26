@@ -18,6 +18,12 @@ interface ProductCardProps {
 
 const NEW_TAG = "new";
 
+/** Keeps every product image cohesive and monochrome regardless of source. */
+const IMG_STYLE = {
+  objectPosition: "center top",
+  filter: "grayscale(10%) contrast(1.08) brightness(0.97)",
+} as const;
+
 export function ProductCard({ product, priority, className }: ProductCardProps) {
   const openQuickView = useUIStore((s) => s.openQuickView);
   const { t } = useTranslation();
@@ -44,6 +50,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
             sizes="(max-width: 768px) 50vw, 25vw"
             priority={priority}
             loading={priority ? "eager" : "lazy"}
+            style={IMG_STYLE}
             className={cn(
               "object-cover transition-transform duration-500 ease-out-expo",
               hoverImage ? "group-hover:opacity-0" : "group-hover:scale-105"
@@ -57,6 +64,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
               loading="lazy"
+              style={IMG_STYLE}
               className="object-cover opacity-0 transition-all duration-500 ease-out-expo group-hover:scale-105 group-hover:opacity-100"
             />
           )}

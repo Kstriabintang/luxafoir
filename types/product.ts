@@ -28,6 +28,8 @@ export interface Product {
   name: string;
   slug: string;
   description: string;
+  /** Material & fabrication note (shown in the PDP "Material" accordion). */
+  material?: string | null;
   price: number;
   comparePrice?: number | null;
   images: string[];

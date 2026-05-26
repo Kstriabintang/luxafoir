@@ -30,7 +30,7 @@ export function FeaturedCollection({
         )}
       >
         <ImageWithBlur
-          src={collection.image ?? "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1200&h=1500&q=80"}
+          src={collection.image ?? "/mockups/col-essentials.svg"}
           alt={collection.name}
           fill
           priority={priority}

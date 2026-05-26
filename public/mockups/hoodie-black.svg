@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F1EEE8"/><stop offset="1" stop-color="#E3DED4"/>
+    </linearGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0.6" stop-color="#00000000"/><stop offset="1" stop-color="#00000018"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg)"/>
+  <ellipse cx="300" cy="660" rx="180" ry="34" fill="rgba(0,0,0,0.16)"/>
+  
+  <path d="M232 286 Q300 250 368 286 L300 360 Z" fill="#191919"/>
+  <path d="M236 300 Q300 270 364 300 L300 352 Z" fill="#F1EEE8" opacity="0.55"/>
+  <path d="M150 320 Q150 286 182 282 L246 300 Q300 312 354 300 L418 282 Q450 286 450 320
+    L470 404 Q472 420 456 422 L408 392 L408 600 Q408 610 398 610 L202 610 Q192 610 192 600 L192 392 L144 422 Q128 420 130 404 Z"
+    fill="#191919"/>
+  <path d="M236 312 Q300 300 364 312" fill="none" stroke="#3a3a3a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+  <path d="M236 470 Q300 486 364 470 L364 540 Q300 556 236 540 Z" fill="#191919" stroke="#3a3a3a" stroke-opacity="0.4"/>
+  <circle cx="276" cy="318" r="4" fill="#3a3a3a"/><circle cx="324" cy="318" r="4" fill="#3a3a3a"/>
+  <path d="M276 320 L284 366 M324 320 L316 366" fill="none" stroke="#3a3a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" opacity="0.7"/>
+  <rect width="600" height="800" fill="url(#vig)"/>
+  <text x="300" y="772" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#00000022">LUXAFOIR</text>
+</svg>

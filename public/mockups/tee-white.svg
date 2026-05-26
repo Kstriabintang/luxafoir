@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#23211e"/><stop offset="1" stop-color="#15140f"/>
+    </linearGradient>
+    <radialGradient id="vig" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0.6" stop-color="#00000000"/><stop offset="1" stop-color="#00000018"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#bg)"/>
+  <ellipse cx="300" cy="660" rx="180" ry="34" fill="rgba(0,0,0,0.45)"/>
+  
+  <path d="M150 305 Q150 272 178 268 L252 250 Q300 240 348 250 L422 268 Q450 272 450 305 L472 386 Q474 402 458 404 L408 376 L408 596 Q408 606 398 606 L202 606 Q192 606 192 596 L192 376 L142 404 Q126 402 128 386 Z" fill="#F3F1EA"/>
+  <ellipse cx="300" cy="256" rx="50" ry="17" fill="#23211e"/>
+  <path d="M252 252 Q300 286 348 252" fill="none" stroke="#cdc8bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+  
+  <path d="M192 376 L142 404 M408 376 L458 404" fill="none" stroke="#cdc8bd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+  <rect width="600" height="800" fill="url(#vig)"/>
+  <text x="300" y="772" text-anchor="middle" font-family="Georgia, serif" font-size="17" letter-spacing="7" fill="#ffffff14">LUXAFOIR</text>
+</svg>

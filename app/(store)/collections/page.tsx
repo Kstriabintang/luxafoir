@@ -31,11 +31,27 @@ export default function CollectionsPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-slow ease-out-expo group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-obsidian/40 transition-colors group-hover:bg-obsidian/55" />
+                <div
+                  className="absolute inset-0 transition-opacity group-hover:opacity-90"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.08) 100%)",
+                  }}
+                />
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                  <h2 className="font-display text-h2 font-light italic text-white">{c.name}</h2>
+                  <h2
+                    className="font-display text-h2 italic text-white"
+                    style={{ fontWeight: 700, textShadow: "0 2px 16px rgba(0,0,0,0.7)" }}
+                  >
+                    {c.name}
+                  </h2>
                   {c.description && (
-                    <p className="mt-3 max-w-sm text-body text-white/80">{c.description}</p>
+                    <p
+                      className="mt-3 max-w-sm text-body text-white"
+                      style={{ textShadow: "0 1px 10px rgba(0,0,0,0.6)" }}
+                    >
+                      {c.description}
+                    </p>
                   )}
                   <span className="link-underline mt-6 text-label uppercase tracking-label text-gold">
                     Explore

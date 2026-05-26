@@ -16,41 +16,48 @@ interface Slide {
   secondary: { label: string; href: string };
 }
 
-const hero = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1920&h=2400&q=80`;
+const hero = (n: number) => `/mockups/hero-${n}.svg`;
 
 const SLIDES: Slide[] = [
   {
-    image: hero("1509942774463-acf339cf87d5"),
-    label: "New Drop · 2026",
-    headline: "Built for\nthe Everyday",
-    subtext: "Heavyweight staples and considered streetwear, made to be worn hard.",
-    primary: { label: "Shop Now", href: "/shop" },
-    secondary: { label: "New Arrivals", href: "/shop?sort=newest" },
+    image: hero(1),
+    label: "New Drop — 2026",
+    headline: "Hitam.\nSelalu.",
+    subtext: "Koleksi dasar kami. Boxy, berat, tidak pernah salah.",
+    primary: { label: "Belanja Sekarang", href: "/shop" },
+    secondary: { label: "Koleksi Baru", href: "/shop?sort=newest" },
   },
   {
-    image: hero("1521572163474-6864f9cf17ab"),
-    label: "Heavyweight",
-    headline: "Weight &\nStructure",
-    subtext: "Oversized silhouettes in premium heavyweight fleece and cotton.",
-    primary: { label: "Shop Hoodies", href: "/shop/hoodie" },
-    secondary: { label: "View Collection", href: "/collections/obsidian-hour" },
+    image: hero(2),
+    label: "Heavyweight Series",
+    headline: "Bukan\nSembarangan.",
+    subtext: "240gsm ke atas. Hoodie 420gsm. Baju yang bertahan lama.",
+    primary: { label: "Lihat Hoodie", href: "/shop/hoodie" },
+    secondary: { label: "Koleksi Heavyweight", href: "/collections/obsidian-hour" },
   },
   {
-    image: hero("1618354691438-25bc04584c23"),
+    image: hero(3),
+    label: "Utility — Skena Pants",
+    headline: "Gombrang.\nBebas.",
+    subtext: "Celana wide, cargo, jogger. Potongan yang tidak mengekang.",
+    primary: { label: "Lihat Celana", href: "/shop/pants" },
+    secondary: { label: "Koleksi Utility", href: "/collections/monsoon" },
+  },
+  {
+    image: hero(4),
     label: "Essentials",
-    headline: "The\nEssentials",
-    subtext: "The core line — heavyweight tees built to outlast the season.",
-    primary: { label: "Shop Tees", href: "/shop/tshirt" },
-    secondary: { label: "The Collection", href: "/collections/distinct-001" },
+    headline: "Dasar\nDari Semua.",
+    subtext: "Kaos polos yang tidak polos-polos amat.",
+    primary: { label: "Lihat Kaos", href: "/shop/tshirt" },
+    secondary: { label: "Koleksi Essentials", href: "/collections/distinct-001" },
   },
   {
-    image: hero("1624378439575-d8705ad7ae80"),
-    label: "Utility",
-    headline: "Made for\nthe City",
-    subtext: "Technical pants and shorts shaped for movement. Function as form.",
-    primary: { label: "Shop Pants", href: "/shop/pants" },
-    secondary: { label: "Lookbook", href: "/journal" },
+    image: hero(5),
+    label: "Local Pride",
+    headline: "Dari\nIndonesia.",
+    subtext: "Brand lokal, kualitas global. Made with conviction.",
+    primary: { label: "Belanja Semua", href: "/shop" },
+    secondary: { label: "Tentang Kami", href: "/about" },
   },
 ];
 

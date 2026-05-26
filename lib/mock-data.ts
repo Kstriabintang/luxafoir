@@ -1,38 +1,25 @@
 import type { Product, Category, Collection } from "@/types/product";
 
 /**
- * Mock catalog — real clothing photography (Unsplash) so the storefront reads
- * like an actual streetwear label. Replace these getters with Prisma/Supabase
- * queries once the DB is live; the rest of the app only depends on the shapes.
+ * Mock catalog — self-hosted monochrome SVG mockups (public/mockups/, generated
+ * by scripts/generate-mockups.mjs) so the storefront reads like an actual
+ * Indonesian streetwear label without depending on fragile external photo URLs.
+ * Replace these getters with Prisma/Supabase queries once the DB is live; the
+ * rest of the app only depends on the shapes.
  */
 
-// Unsplash clothing photo IDs (apparel only — no landscapes/abstract).
-const PHOTOS = {
-  tshirt: ["1583743814966-8936f5b7be1a", "1618354691438-25bc04584c23", "1521572163474-6864f9cf17ab"],
-  hoodie: ["1509942774463-acf339cf87d5", "1539109136881-3be0616acf4b"],
-  pants: ["1624378439575-d8705ad7ae80", "1473966968600-fa801b869a1a"],
-} as const;
-
-// Editorial / textile imagery for collection features.
-const EDITORIAL = {
-  textile: "1558769132-cb1aea458c5e",
-  fabric: "1576566588028-4147f3842f27",
-  lookbook: "1490481651871-ab68de25d43d",
-} as const;
-
-export const u = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&h=1200&q=80`;
+// Local studio mockup path (clean monochrome, brand watermark, never 404s).
+export const m = (file: string) => `/mockups/${file}.svg`;
 
 // Two-image set per product (front + alternate) for the hover swap.
-const pair = (pool: readonly string[], offset = 0) =>
-  [u(pool[offset % pool.length]), u(pool[(offset + 1) % pool.length])];
+const pair = (front: string, back: string) => [m(front), m(back)];
 
 export const CATEGORIES: Category[] = [
-  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: u(PHOTOS.tshirt[0]) },
-  { id: "cat-longsleeve", name: "Long Sleeve", slug: "longsleeve", image: u(PHOTOS.tshirt[1]) },
-  { id: "cat-hoodie", name: "Hoodie", slug: "hoodie", image: u(PHOTOS.hoodie[0]) },
-  { id: "cat-pants", name: "Pants", slug: "pants", image: u(PHOTOS.pants[0]) },
-  { id: "cat-shorts", name: "Shorts", slug: "shorts", image: u(PHOTOS.pants[1]) },
+  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: m("tee-black") },
+  { id: "cat-longsleeve", name: "Long Sleeve", slug: "longsleeve", image: m("longsleeve-black") },
+  { id: "cat-hoodie", name: "Hoodie", slug: "hoodie", image: m("hoodie-black") },
+  { id: "cat-pants", name: "Pants", slug: "pants", image: m("widepants-black") },
+  { id: "cat-shorts", name: "Shorts", slug: "shorts", image: m("shorts-black") },
 ];
 
 export const COLLECTIONS: Collection[] = [
@@ -40,8 +27,8 @@ export const COLLECTIONS: Collection[] = [
     id: "col-essentials",
     name: "Essentials",
     slug: "distinct-001",
-    description: "The core line. Heavyweight cotton staples built to be worn every day.",
-    image: u(EDITORIAL.lookbook),
+    description: "Dasar dari semua outfit. Hitam. Putih. Tidak pernah salah.",
+    image: m("col-essentials"),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -50,8 +37,8 @@ export const COLLECTIONS: Collection[] = [
     id: "col-heavyweight",
     name: "Heavyweight",
     slug: "obsidian-hour",
-    description: "Oversized silhouettes in premium heavyweight fabric. Structured, considered.",
-    image: u(EDITORIAL.fabric),
+    description: "Hoodie 420gsm. Tee 240gsm. Untuk yang mau terasa ada di badannya.",
+    image: m("col-heavyweight"),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -60,21 +47,20 @@ export const COLLECTIONS: Collection[] = [
     id: "col-utility",
     name: "Utility",
     slug: "monsoon",
-    description: "Technical streetwear shaped for the city — function as form.",
-    image: u(EDITORIAL.textile),
+    description: "Gombrang, cargo, jogger. Celana skena yang bebas dan tidak dikekang.",
+    image: m("col-utility"),
     isActive: true,
     startDate: null,
     endDate: null,
   },
 ];
 
-const STANDARD_SIZES = ["XS", "S", "M", "L", "XL"];
-
-function variants(productId: string, stockMap: Record<string, number>) {
-  return STANDARD_SIZES.map((size) => ({
+function variants(productId: string, sizes: string[], soldOut = false) {
+  const stockBySize: Record<string, number> = { S: 14, M: 18, L: 16, XL: 9, XXL: 5 };
+  return sizes.map((size) => ({
     id: `${productId}-${size}`,
     size,
-    stock: stockMap[size] ?? 0,
+    stock: soldOut ? 0 : stockBySize[size] ?? 8,
     sku: `${productId.toUpperCase()}-${size}`,
   }));
 }
@@ -86,177 +72,187 @@ interface Seed {
   comparePrice?: number;
   categoryId: string;
   collectionId?: string;
+  sizes: string[];
   tags?: string[];
   isFeatured?: boolean;
   soldOut?: boolean;
   images: string[];
   desc: string;
+  material: string;
 }
 
 const SEEDS: Seed[] = [
-  // ── T-Shirts (Rp249.000 – Rp349.000) ──
+  // ── KAOS / T-SHIRTS ──────────────────────────────────────────
   {
-    name: "Essential Boxy Tee",
-    slug: "essential-boxy-tee",
-    price: 289_000,
+    name: "VOID Boxy Tee / Black",
+    slug: "void-boxy-tee-black",
+    price: 275_000,
     categoryId: "cat-tshirt",
     collectionId: "col-essentials",
-    tags: ["new", "cotton"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    tags: ["essentials", "boxy", "cotton"],
     isFeatured: true,
-    images: pair(PHOTOS.tshirt, 0),
-    desc: "A boxy, midweight cotton tee with a clean drop shoulder. The everyday foundation of the wardrobe.",
+    images: pair("tee-black", "fabric-black"),
+    desc: "Bukan kaos biasa. Potongan boxy oversized dengan dropped shoulder yang bikin bahu kamu drop dengan sendirinya. Cotton 240gsm yang berat dan jatuh rapi di badan. Hitam yang tidak pudar walau dicuci berkali-kali. Ini fondasi lemari kamu.",
+    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder, jahitan rantai di kerah. Pre-shrunk biar nggak ngaret setelah dicuci.",
   },
   {
-    name: "Heavyweight Box Tee",
-    slug: "heavyweight-box-tee",
-    price: 329_000,
+    name: "PHANTOM Boxy Tee / White",
+    slug: "phantom-boxy-tee-white",
+    price: 275_000,
+    categoryId: "cat-tshirt",
+    collectionId: "col-essentials",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    tags: ["essentials", "boxy", "cotton"],
+    isFeatured: true,
+    images: pair("tee-white", "fabric-white"),
+    desc: "Sama berat, sama boxy-nya kayak VOID — tapi putih bersih. Kaos polos yang tidak polos-polos amat. 240gsm yang nahan bentuk, kerah yang nggak melar. Putih yang berani kotor karena kualitasnya bikin kamu pede pakai tiap hari.",
+    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder. Warna putih solid, anti-transparan walau bahannya tebal.",
+  },
+  {
+    name: "CORRUPT Graphic Tee / Black",
+    slug: "corrupt-graphic-tee-black",
+    price: 315_000,
+    comparePrice: 385_000,
     categoryId: "cat-tshirt",
     collectionId: "col-heavyweight",
-    tags: ["cotton"],
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "sale", "graphic", "heavyweight"],
     isFeatured: true,
-    images: pair(PHOTOS.tshirt, 1),
-    desc: "240gsm heavyweight cotton with structured drape and a relaxed body. Built to hold its shape.",
+    images: pair("teeprint-black", "tee-black"),
+    desc: "Boxy oversized dengan premium screen print yang nggak retak setengah mati setelah cuci ketiga. Tinta plastisol tebal, sablon rapi, badan 240gsm. Buat yang mau statement tapi tetap clean. Stok grafis ini terbatas.",
+    material: "100% cotton combed 240gsm. Sablon plastisol premium, high-density. Boxy fit, dropped shoulder.",
   },
   {
-    name: "Oversized Logo Tee",
-    slug: "oversized-logo-tee",
-    price: 299_000,
-    comparePrice: 349_000,
+    name: "FRAGMENT Washed Tee / Black",
+    slug: "fragment-washed-tee-black",
+    price: 335_000,
     categoryId: "cat-tshirt",
-    tags: ["sale", "cotton"],
-    images: pair(PHOTOS.tshirt, 2),
-    desc: "Oversized fit with a subtle tonal logo. Pre-washed for an easy, lived-in hand-feel.",
+    collectionId: "col-heavyweight",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "washed", "heavyweight"],
+    images: pair("teewashed-black", "fabric-black"),
+    desc: "Enzyme washed sampai dapet tekstur vintage yang susah dipalsuin. Hitamnya udah faded dari awal, jadi makin lama makin punya karakter. Boxy, berat, dan kelihatan kayak udah kamu pakai bertahun-tahun. Padahal baru.",
+    material: "100% cotton combed 240gsm, enzyme wash. Efek faded vintage, tekstur lembut. Tiap potong sedikit beda — itu memang maksudnya.",
   },
+
+  // ── LONGSLEEVE ───────────────────────────────────────────────
   {
-    name: "Washed Cotton Tee",
-    slug: "washed-cotton-tee",
-    price: 259_000,
-    categoryId: "cat-tshirt",
-    collectionId: "col-essentials",
-    tags: ["cotton"],
-    images: pair(PHOTOS.tshirt, 0),
-    desc: "Garment-dyed and washed for a soft, faded finish. A relaxed everyday staple.",
-  },
-  // ── Long Sleeve (Rp299.000 – Rp399.000) ──
-  {
-    name: "Essential Long Sleeve",
-    slug: "essential-long-sleeve",
-    price: 349_000,
+    name: "SPECTER Longsleeve / Black",
+    slug: "specter-longsleeve-black",
+    price: 335_000,
     categoryId: "cat-longsleeve",
     collectionId: "col-essentials",
-    tags: ["new", "cotton"],
-    isFeatured: true,
-    images: pair(PHOTOS.tshirt, 1),
-    desc: "A clean long-sleeve in midweight cotton with ribbed cuffs. Layer it or wear it alone.",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "essentials", "cotton"],
+    images: pair("longsleeve-black", "fabric-black"),
+    desc: "Longsleeve boxy dengan dropped shoulder dan ribbed cuff yang nyangkut pas di pergelangan. Dipakai sendiri oke, dijadiin layering juga jadi. Bahan midweight yang nggak gerah tapi tetap nahan bentuk. Simpel, tapi niat.",
+    material: "Cotton combed 220gsm. Dropped shoulder, ribbed cuff di pergelangan. Potongan boxy, panjang badan pas buat di-layer.",
   },
+
+  // ── HOODIES ──────────────────────────────────────────────────
   {
-    name: "Box Long Sleeve",
-    slug: "box-long-sleeve",
-    price: 389_000,
-    categoryId: "cat-longsleeve",
-    collectionId: "col-heavyweight",
-    tags: ["cotton"],
-    images: pair(PHOTOS.tshirt, 2),
-    desc: "Boxy long-sleeve cut from heavyweight jersey with a structured shoulder.",
-  },
-  // ── Hoodies (Rp499.000 – Rp649.000) ──
-  {
-    name: "Heavyweight Hoodie",
-    slug: "heavyweight-hoodie",
-    price: 599_000,
+    name: "OBSIDIAN Heavyweight Hoodie / Black",
+    slug: "obsidian-heavyweight-hoodie-black",
+    price: 585_000,
+    comparePrice: 685_000,
     categoryId: "cat-hoodie",
     collectionId: "col-heavyweight",
-    tags: ["new", "fleece"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    tags: ["sale", "heavyweight", "fleece"],
     isFeatured: true,
-    images: pair(PHOTOS.hoodie, 0),
-    desc: "Brushed-back heavyweight fleece with a double-lined hood and boxy fit. The flagship piece.",
+    images: pair("hoodie-black", "fabric-black"),
+    desc: "420gsm. Ini bukan hoodie tipis yang langsung melar. Berat, hangat, dengan kangaroo pocket yang dalem dan hood double-layer yang berdiri sendiri. Oversized fit. Begitu kamu pakai, kamu ngerti kenapa harganya segini. Untuk yang mau terasa ada di badannya.",
+    material: "Fleece cotton 420gsm, brushed back. Kangaroo pocket, hood dua lapis, ribbing tebal di cuff dan pinggang. Oversized fit.",
   },
   {
-    name: "Oversized Pullover Hoodie",
-    slug: "oversized-pullover-hoodie",
-    price: 649_000,
+    name: "VOID Zip Hoodie / Black",
+    slug: "void-zip-hoodie-black",
+    price: 545_000,
     categoryId: "cat-hoodie",
     collectionId: "col-heavyweight",
-    tags: ["fleece"],
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "heavyweight", "fleece"],
     isFeatured: true,
-    images: pair(PHOTOS.hoodie, 1),
-    desc: "An oversized pullover in premium loopback cotton. Dropped shoulders, heavy drape.",
+    images: pair("ziphoodie-black", "hoodie-black"),
+    desc: "Full-zip 380gsm yang dibikin buat layering. Resleting YKH yang halus, badan yang cukup berat buat berdiri sendiri tapi nggak bikin gerah. Buka-tutup gampang, dipakai di atas tee atau di bawah jaket sama enaknya. Piece serbaguna yang bakal sering kamu pakai.",
+    material: "Fleece cotton 380gsm, brushed back. Full-zip metal, hood double-layer, ribbing di cuff & hem. Fit sedikit lebih ramping dari OBSIDIAN.",
   },
+
+  // ── CELANA SKENA / PANTS ─────────────────────────────────────
   {
-    name: "Essential Zip Hoodie",
-    slug: "essential-zip-hoodie",
-    price: 549_000,
-    comparePrice: 649_000,
-    categoryId: "cat-hoodie",
-    collectionId: "col-essentials",
-    tags: ["sale", "fleece"],
-    images: pair(PHOTOS.hoodie, 0),
-    desc: "Full-zip hoodie in brushed fleece with a clean, minimal finish.",
-  },
-  // ── Pants (Rp449.000 – Rp549.000) ──
-  {
-    name: "Relaxed Cargo Pant",
-    slug: "relaxed-cargo-pant",
-    price: 499_000,
+    name: "GOMBRANG Wide Pants / Black",
+    slug: "gombrang-wide-pants-black",
+    price: 485_000,
     categoryId: "cat-pants",
     collectionId: "col-utility",
-    tags: ["new"],
-    images: pair(PHOTOS.pants, 0),
-    desc: "Relaxed cargo in durable cotton twill with utility pockets and a tapered ankle.",
-  },
-  {
-    name: "Tapered Sweatpant",
-    slug: "tapered-sweatpant",
-    price: 459_000,
-    categoryId: "cat-pants",
-    tags: ["fleece"],
-    soldOut: true,
-    images: pair(PHOTOS.pants, 1),
-    desc: "Tapered sweatpant in heavyweight fleece with ribbed cuffs and a clean elastic waist.",
-  },
-  {
-    name: "Wide Leg Trouser",
-    slug: "wide-leg-trouser",
-    price: 529_000,
-    categoryId: "cat-pants",
-    collectionId: "col-heavyweight",
-    tags: [],
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "utility", "wide"],
     isFeatured: true,
-    images: pair(PHOTOS.pants, 0),
-    desc: "A wide-leg trouser with a pressed front and relaxed drape. Elevated streetwear tailoring.",
+    images: pair("widepants-black", "fabric-black"),
+    desc: "Gombrang beneran. Wide leg yang loose dari paha sampai ujung, siluet skena yang nggak mengekang gerak. Pinggang elastis plus drawstring, bahan twill yang jatuh berat. Buat yang capek sama celana ketat dan mau bebas.",
+    material: "Cotton twill 280gsm. Wide leg, pinggang elastis + drawstring, saku samping dalam. Jatuh berat, nggak ngembang.",
   },
-  // ── Shorts (Rp199.000 – Rp299.000) ──
   {
-    name: "Essential Sweat Short",
-    slug: "essential-sweat-short",
-    price: 249_000,
+    name: "BAGGY Cargo Pants / Black",
+    slug: "baggy-cargo-pants-black",
+    price: 525_000,
+    categoryId: "cat-pants",
+    collectionId: "col-utility",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "utility", "cargo"],
+    images: pair("cargo-black", "widepants-black"),
+    desc: "Baggy cargo dengan 6 kantong yang beneran muat barang, bukan cuma hiasan. Terinspirasi skate dan skena, potongannya longgar tapi tetap rapi. Twill tebal yang tahan banting. Fungsional tanpa norak.",
+    material: "Cotton twill 300gsm. 6 kantong (2 samping cargo dengan flap + 2 depan + 2 belakang). Baggy fit, hem lebar.",
+  },
+  {
+    name: "SKENA Jogger Pants / Black",
+    slug: "skena-jogger-pants-black",
+    price: 445_000,
+    categoryId: "cat-pants",
+    collectionId: "col-utility",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["utility", "jogger", "fleece"],
+    images: pair("jogger-black", "fabric-black"),
+    desc: "Atasnya oversized, bawahnya tapered, ditutup ribbed cuff yang ngegantung pas. Siluet jogger yang lagi jadi seragam anak skena. Bahan fleece yang adem buat sehari-hari, gampang dipaduin sama apa aja. Nyaman tanpa terlihat malas.",
+    material: "Fleece cotton 320gsm. Tapered fit, ribbed cuff, pinggang elastis + drawstring. Saku samping dalam.",
+  },
+
+  // ── SHORTS ───────────────────────────────────────────────────
+  {
+    name: "BASIC Loose Shorts / Black",
+    slug: "basic-loose-shorts-black",
+    price: 245_000,
     categoryId: "cat-shorts",
     collectionId: "col-essentials",
-    tags: ["fleece"],
-    images: pair(PHOTOS.pants, 1),
-    desc: "A 7-inch sweat short in brushed fleece. Easy, relaxed, every-day.",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["essentials", "shorts"],
+    images: pair("shorts-black", "fabric-black"),
+    desc: "Loose fit selutut dengan drawstring, dasar yang kamu butuh buat hari panas. Nggak neko-neko, nggak ketat, bahan yang adem. Dipakai di rumah, ke warung, atau buat olahraga sama enaknya. Murah meriah tapi nggak murahan.",
+    material: "Cotton terry 260gsm. Loose fit, panjang selutut, pinggang elastis + drawstring, saku samping.",
   },
   {
-    name: "Nylon Track Short",
-    slug: "nylon-track-short",
-    price: 219_000,
-    comparePrice: 279_000,
+    name: "WASHED Skate Shorts / Black",
+    slug: "washed-skate-shorts-black",
+    price: 275_000,
+    comparePrice: 325_000,
     categoryId: "cat-shorts",
-    collectionId: "col-utility",
-    tags: ["sale", "technical"],
-    images: pair(PHOTOS.pants, 0),
-    desc: "Lightweight nylon track short with a mesh lining and elastic drawcord waist.",
+    sizes: ["S", "M", "L", "XL"],
+    tags: ["new", "sale", "washed", "shorts"],
+    images: pair("shortswashed-black", "fabric-black"),
+    desc: "Washed black dengan efek faded yang skate banget. Lebih panjang dan loose dari basic, dibikin buat gerak. Hitamnya udah sedikit pudar dari awal jadi makin dipakai makin keren. Buat yang main board atau cuma pengin tampil kayak main board.",
+    material: "Cotton twill 280gsm, garment wash. Loose skate fit, efek faded, drawstring. Tiap potong punya pudaran yang sedikit beda.",
   },
 ];
 
 export const PRODUCTS: Product[] = SEEDS.map((s, idx) => {
   const id = `prod-${idx + 1}`;
-  const soldOut = s.soldOut ?? false;
   return {
     id,
     name: s.name,
     slug: s.slug,
     description: s.desc,
+    material: s.material,
     price: s.price,
     comparePrice: s.comparePrice ?? null,
     images: s.images,
@@ -264,12 +260,7 @@ export const PRODUCTS: Product[] = SEEDS.map((s, idx) => {
     category: CATEGORIES.find((c) => c.id === s.categoryId),
     collectionId: s.collectionId ?? null,
     collection: COLLECTIONS.find((c) => c.id === s.collectionId) ?? null,
-    variants: variants(
-      id,
-      soldOut
-        ? { XS: 0, S: 0, M: 0, L: 0, XL: 0 }
-        : { XS: 6, S: 12, M: 16, L: 10, XL: 4 }
-    ),
+    variants: variants(id, s.sizes, s.soldOut ?? false),
     tags: s.tags ?? [],
     isFeatured: s.isFeatured ?? false,
     isActive: true,
