@@ -77,7 +77,7 @@ const config: Config = {
         h2: ["clamp(28px, 4vw, 48px)", { lineHeight: "1.1", fontWeight: "400" }],
         h3: ["clamp(20px, 3vw, 32px)", { lineHeight: "1.2", fontWeight: "400" }],
         label: ["11px", { lineHeight: "1.4", letterSpacing: "0.15em", fontWeight: "500" }],
-        body: ["15px", { lineHeight: "1.7", fontWeight: "400" }],
+        body: ["17px", { lineHeight: "1.7", fontWeight: "400" }],
         caption: ["12px", { lineHeight: "1.5", fontWeight: "400" }],
       },
       letterSpacing: {

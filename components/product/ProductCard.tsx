@@ -105,27 +105,24 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
         </div>
       </Link>
 
-      {/* Meta */}
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <Link href={`/product/${product.slug}`}>
-            <h3 className="truncate text-label uppercase tracking-label text-ivory transition-colors group-hover:text-gold">
-              {product.name}
-            </h3>
-          </Link>
-          {product.category && (
-            <p className="mt-1 text-caption text-smoke">{product.category.name}</p>
-          )}
-        </div>
-
-        <div className="shrink-0 text-right">
-          <p className={cn("font-mono text-sm", discount ? "text-gold" : "text-ivory")}>
+      {/* Meta — name wraps to 2 lines; price sits below it */}
+      <div className="mt-4 flex flex-col gap-1.5">
+        <Link href={`/product/${product.slug}`}>
+          <h3 className="line-clamp-2 text-[15px] uppercase leading-snug tracking-label text-ivory transition-colors group-hover:text-gold">
+            {product.name}
+          </h3>
+        </Link>
+        {product.category && (
+          <p className="text-caption text-smoke">{product.category.name}</p>
+        )}
+        <div className="mt-0.5 flex items-baseline gap-2">
+          <span className={cn("font-mono text-[15px]", discount ? "text-gold" : "text-ivory")}>
             {formatIDR(product.price)}
-          </p>
+          </span>
           {product.comparePrice && (
-            <p className="font-mono text-xs text-smoke line-through">
+            <span className="font-mono text-[13px] text-smoke line-through">
               {formatIDR(product.comparePrice)}
-            </p>
+            </span>
           )}
         </div>
       </div>
