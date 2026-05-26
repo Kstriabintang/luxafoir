@@ -65,10 +65,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-display)", "Cormorant Garamond", "serif"],
-        body: ["var(--font-body)", "DM Sans", "sans-serif"],
-        mono: ["var(--font-mono)", "DM Mono", "monospace"],
-        sans: ["var(--font-body)", "DM Sans", "sans-serif"],
+        // Obra Letra everywhere (display, body, mono, sans) — serif fallback.
+        display: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
+        body: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
+        mono: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
+        sans: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
       },
       fontSize: {
         hero: ["clamp(64px, 10vw, 120px)", { lineHeight: "0.95", fontWeight: "300" }],

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
-import { fontVariables } from "@/lib/fonts";
 import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 import "./globals.css";
 
@@ -65,7 +64,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={fontVariables} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-white font-body text-[#0A0A0A] antialiased">
         <script
           type="application/ld+json"

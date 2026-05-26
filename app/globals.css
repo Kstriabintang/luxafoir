@@ -3,6 +3,36 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════
+   OBRA LETRA — self-hosted brand typeface (all elements).
+   Drop the font files into public/fonts/ with these names. Multiple formats
+   are listed; missing ones are skipped by the browser. Fallback = serif.
+   ═══════════════════════════════════════════ */
+@font-face {
+  font-family: "Obra Letra";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Obra Letra"),
+    local("KC Obra Letra"),
+    url("/fonts/ObraLetra-Regular.woff2") format("woff2"),
+    url("/fonts/ObraLetra-Regular.woff") format("woff"),
+    url("/fonts/ObraLetra-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Obra Letra";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Obra Letra Bold"),
+    local("KC Obra Letra Bold"),
+    url("/fonts/ObraLetra-Bold.woff2") format("woff2"),
+    url("/fonts/ObraLetra-Bold.woff") format("woff"),
+    url("/fonts/ObraLetra-Bold.ttf") format("truetype");
+}
+
+/* ═══════════════════════════════════════════
    LUXAFOIR — DESIGN SYSTEM (WHITE & CLEAN — PERMANENT)
    White background, black text, muted gold accent.
    Only the Footer and the Announcement bar are dark/gold.
