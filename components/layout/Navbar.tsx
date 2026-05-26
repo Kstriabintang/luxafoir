@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -103,11 +104,16 @@ export function Navbar() {
 
         {/* CENTER — nav (desktop) / logo (mobile) */}
         <div className="flex items-center justify-center">
-          <Link
-            href="/"
-            className="font-display text-2xl font-bold italic leading-none tracking-tight text-ivory md:hidden"
-          >
-            LUXAFOIR
+          {/* Mobile: brand mark (the long text crowds the right-side icons) */}
+          <Link href="/" aria-label="LUXAFOIR — Home" className="md:hidden">
+            <Image
+              src="/icon.png"
+              alt="LUXAFOIR"
+              width={36}
+              height={36}
+              priority
+              className="h-9 w-auto"
+            />
           </Link>
           <ul className="hidden items-center gap-9 md:flex">
             {NAV_LINKS.map((link) => (
