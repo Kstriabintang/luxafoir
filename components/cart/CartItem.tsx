@@ -32,7 +32,7 @@ export function CartItem({ item, onQuantityChange, onRemove, onNavigate }: CartI
         onClick={onNavigate}
         className="relative size-20 shrink-0 overflow-hidden bg-charcoal"
       >
-        <ImageWithBlur src={item.image} alt={item.name} fill sizes="80px" className="object-cover" />
+        <ImageWithBlur src={item.image} alt={item.name} fill sizes="80px" className="object-cover grayscale" />
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col">

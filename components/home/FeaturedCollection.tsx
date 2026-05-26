@@ -30,12 +30,12 @@ export function FeaturedCollection({
         )}
       >
         <ImageWithBlur
-          src={collection.image ?? "/mockups/col-essentials.svg"}
+          src={collection.image ?? "https://images.pexels.com/photos/28758240/pexels-photo-28758240.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=1500"}
           alt={collection.name}
           fill
           priority={priority}
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-cinematic ease-out-expo group-hover:scale-105"
+          className="object-cover grayscale transition-transform duration-cinematic ease-out-expo group-hover:scale-105"
         />
       </div>
 

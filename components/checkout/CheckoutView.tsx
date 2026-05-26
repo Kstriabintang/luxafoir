@@ -234,7 +234,7 @@ export function CheckoutView() {
                   {items.map((item) => (
                     <div key={item.key} className="flex gap-4 border-b border-ash p-4 last:border-b-0">
                       <div className="relative size-16 shrink-0 overflow-hidden bg-charcoal">
-                        <ImageWithBlur src={item.image} alt={item.name} fill sizes="64px" className="object-cover" />
+                        <ImageWithBlur src={item.image} alt={item.name} fill sizes="64px" className="object-cover grayscale" />
                       </div>
                       <div className="flex flex-1 items-center justify-between">
                         <div>
@@ -311,7 +311,7 @@ export function CheckoutView() {
               {items.map((item) => (
                 <div key={item.key} className="flex items-center gap-3">
                   <div className="relative size-12 shrink-0 overflow-hidden bg-charcoal">
-                    <ImageWithBlur src={item.image} alt={item.name} fill sizes="48px" className="object-cover" />
+                    <ImageWithBlur src={item.image} alt={item.name} fill sizes="48px" className="object-cover grayscale" />
                     <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-gold font-mono text-[9px] text-obsidian">
                       {item.quantity}
                     </span>

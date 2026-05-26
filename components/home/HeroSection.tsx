@@ -16,47 +16,41 @@ interface Slide {
   secondary: { label: string; href: string };
 }
 
-const hero = (n: number) => `/mockups/hero-${n}.svg`;
+// Free-to-use Pexels model shots (boxy tee + skena). Rendered monochrome below.
+const hero = (id: number) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1920&h=1280`;
 
 const SLIDES: Slide[] = [
   {
-    image: hero(1),
+    image: hero(28758240),
     label: "New Drop — 2026",
-    headline: "Hitam.\nSelalu.",
-    subtext: "Koleksi dasar kami. Boxy, berat, tidak pernah salah.",
+    headline: "Boxy.\nSelalu.",
+    subtext: "Oversized, jatuh berat, dropped shoulder. Tidak pernah salah.",
     primary: { label: "Belanja Sekarang", href: "/shop" },
     secondary: { label: "Koleksi Baru", href: "/shop?sort=newest" },
   },
   {
-    image: hero(2),
-    label: "Heavyweight Series",
-    headline: "Bukan\nSembarangan.",
-    subtext: "240gsm ke atas. Hoodie 420gsm. Baju yang bertahan lama.",
-    primary: { label: "Lihat Hoodie", href: "/shop/hoodie" },
-    secondary: { label: "Koleksi Heavyweight", href: "/collections/obsidian-hour" },
+    image: hero(28338020),
+    label: "Skena Uniform",
+    headline: "Boxy Tee.\nGombrang.",
+    subtext: "Kaos boxy, celana lebar. Satu look, semua benar.",
+    primary: { label: "Lihat Heavyweight", href: "/collections/obsidian-hour" },
+    secondary: { label: "Semua Tee", href: "/shop" },
   },
   {
-    image: hero(3),
-    label: "Utility — Skena Pants",
-    headline: "Gombrang.\nBebas.",
-    subtext: "Celana wide, cargo, jogger. Potongan yang tidak mengekang.",
-    primary: { label: "Lihat Celana", href: "/shop/pants" },
-    secondary: { label: "Koleksi Utility", href: "/collections/monsoon" },
+    image: hero(18860079),
+    label: "Black & White",
+    headline: "Hitam.\nPutih.",
+    subtext: "Dua warna. Tidak butuh yang lain.",
+    primary: { label: "Lihat Essentials", href: "/collections/distinct-001" },
+    secondary: { label: "Belanja Semua", href: "/shop" },
   },
   {
-    image: hero(4),
-    label: "Essentials",
-    headline: "Dasar\nDari Semua.",
-    subtext: "Kaos polos yang tidak polos-polos amat.",
-    primary: { label: "Lihat Kaos", href: "/shop/tshirt" },
-    secondary: { label: "Koleksi Essentials", href: "/collections/distinct-001" },
-  },
-  {
-    image: hero(5),
+    image: hero(33993734),
     label: "Local Pride",
     headline: "Dari\nIndonesia.",
     subtext: "Brand lokal, kualitas global. Made with conviction.",
-    primary: { label: "Belanja Semua", href: "/shop" },
+    primary: { label: "Belanja Sekarang", href: "/shop" },
     secondary: { label: "Tentang Kami", href: "/about" },
   },
 ];
@@ -113,7 +107,7 @@ export function HeroSection() {
             fill
             priority={index === 0}
             sizes="100vw"
-            className="object-cover"
+            className="object-cover grayscale"
           />
         </motion.div>
       </AnimatePresence>

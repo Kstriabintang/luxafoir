@@ -1,25 +1,21 @@
 import type { Product, Category, Collection } from "@/types/product";
 
 /**
- * Mock catalog — self-hosted monochrome SVG mockups (public/mockups/, generated
- * by scripts/generate-mockups.mjs) so the storefront reads like an actual
- * Indonesian streetwear label without depending on fragile external photo URLs.
- * Replace these getters with Prisma/Supabase queries once the DB is live; the
- * rest of the app only depends on the shapes.
+ * Mock catalog — focused on BOXY / OVERSIZED tees only (black & white).
+ * Imagery = free-to-use Pexels photos (verified 200, hotlink-legal). Every
+ * product/model image is forced to monochrome in the UI (grayscale filter), so
+ * the storefront reads strictly black & white regardless of the source photo.
+ * Replace these getters with Prisma/Supabase queries once the DB is live.
  */
 
-// Local studio mockup path (clean monochrome, brand watermark, never 404s).
-export const m = (file: string) => `/mockups/${file}.svg`;
+// Pexels hotlink (free commercial use). Portrait crop by default for cards.
+export const px = (id: number, w = 900, h = 1200) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
 
-// Two-image set per product (front + alternate) for the hover swap.
-const pair = (front: string, back: string) => [m(front), m(back)];
+const pair = (front: number, back: number) => [px(front), px(back)];
 
 export const CATEGORIES: Category[] = [
-  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: m("tee-black") },
-  { id: "cat-longsleeve", name: "Long Sleeve", slug: "longsleeve", image: m("longsleeve-black") },
-  { id: "cat-hoodie", name: "Hoodie", slug: "hoodie", image: m("hoodie-black") },
-  { id: "cat-pants", name: "Pants", slug: "pants", image: m("widepants-black") },
-  { id: "cat-shorts", name: "Shorts", slug: "shorts", image: m("shorts-black") },
+  { id: "cat-tshirt", name: "T-Shirt", slug: "tshirt", image: px(28758241) },
 ];
 
 export const COLLECTIONS: Collection[] = [
@@ -27,8 +23,8 @@ export const COLLECTIONS: Collection[] = [
     id: "col-essentials",
     name: "Essentials",
     slug: "distinct-001",
-    description: "Dasar dari semua outfit. Hitam. Putih. Tidak pernah salah.",
-    image: m("col-essentials"),
+    description: "Boxy tee polos. Hitam. Putih. Dasar dari semua outfit skena.",
+    image: px(28758240, 1200, 1500),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -37,18 +33,8 @@ export const COLLECTIONS: Collection[] = [
     id: "col-heavyweight",
     name: "Heavyweight",
     slug: "obsidian-hour",
-    description: "Hoodie 420gsm. Tee 240gsm. Untuk yang mau terasa ada di badannya.",
-    image: m("col-heavyweight"),
-    isActive: true,
-    startDate: null,
-    endDate: null,
-  },
-  {
-    id: "col-utility",
-    name: "Utility",
-    slug: "monsoon",
-    description: "Gombrang, cargo, jogger. Celana skena yang bebas dan tidak dikekang.",
-    image: m("col-utility"),
+    description: "Tee 240gsm dengan sablon premium. Boxy, berat, terasa ada di badan.",
+    image: px(28338020, 1200, 1500),
     isActive: true,
     startDate: null,
     endDate: null,
@@ -70,7 +56,6 @@ interface Seed {
   slug: string;
   price: number;
   comparePrice?: number;
-  categoryId: string;
   collectionId?: string;
   sizes: string[];
   tags?: string[];
@@ -81,167 +66,107 @@ interface Seed {
   material: string;
 }
 
+const TEE_SIZES = ["S", "M", "L", "XL"];
+const TEE_SIZES_XL = ["S", "M", "L", "XL", "XXL"];
+
+// All BOXY TEES — black & white only. Pexels IDs verified to return 200.
 const SEEDS: Seed[] = [
-  // ── KAOS / T-SHIRTS ──────────────────────────────────────────
+  // ── ESSENTIALS · boxy tee polos ──────────────────────────────
   {
     name: "VOID Boxy Tee / Black",
     slug: "void-boxy-tee-black",
     price: 275_000,
-    categoryId: "cat-tshirt",
     collectionId: "col-essentials",
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    sizes: TEE_SIZES_XL,
     tags: ["essentials", "boxy", "cotton"],
     isFeatured: true,
-    images: pair("tee-black", "fabric-black"),
+    images: pair(28758241, 9558567),
     desc: "Bukan kaos biasa. Potongan boxy oversized dengan dropped shoulder yang bikin bahu kamu drop dengan sendirinya. Cotton 240gsm yang berat dan jatuh rapi di badan. Hitam yang tidak pudar walau dicuci berkali-kali. Ini fondasi lemari kamu.",
-    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder, jahitan rantai di kerah. Pre-shrunk biar nggak ngaret setelah dicuci.",
+    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder, boxy fit. Pre-shrunk biar nggak ngaret setelah dicuci.",
+  },
+  {
+    name: "SPECTER Boxy Tee / Black",
+    slug: "specter-boxy-tee-black",
+    price: 269_000,
+    collectionId: "col-essentials",
+    sizes: TEE_SIZES,
+    tags: ["essentials", "boxy", "cotton"],
+    isFeatured: true,
+    images: pair(9558588, 28758242),
+    desc: "Boxy fit yang lebih cropped dikit, pas buat yang suka kelihatan body badannya. Bahan 230gsm yang adem tapi tetap nahan bentuk. Hitam solid, jahitan rapi, kerah yang nggak gampang melar. Simpel tapi niat.",
+    material: "100% cotton combed 230gsm. Boxy cropped fit, dropped shoulder, jahitan rantai di kerah.",
+  },
+  {
+    name: "STAPLE Boxy Tee / Black",
+    slug: "staple-boxy-tee-black",
+    price: 259_000,
+    collectionId: "col-essentials",
+    sizes: TEE_SIZES,
+    tags: ["essentials", "boxy", "cotton"],
+    images: pair(28758240, 28758239),
+    desc: "Boxy tee paling dasar yang wajib punya minimal tiga. Oversized, jatuh longgar, gampang dipaduin sama celana apa aja. Bahan combed yang lembut di kulit. Murah meriah tapi nggak murahan.",
+    material: "100% cotton combed 240gsm. Oversized boxy fit, dropped shoulder.",
   },
   {
     name: "PHANTOM Boxy Tee / White",
     slug: "phantom-boxy-tee-white",
     price: 275_000,
-    categoryId: "cat-tshirt",
     collectionId: "col-essentials",
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    sizes: TEE_SIZES_XL,
     tags: ["essentials", "boxy", "cotton"],
     isFeatured: true,
-    images: pair("tee-white", "fabric-white"),
+    images: [px(20736690)],
     desc: "Sama berat, sama boxy-nya kayak VOID — tapi putih bersih. Kaos polos yang tidak polos-polos amat. 240gsm yang nahan bentuk, kerah yang nggak melar. Putih yang berani kotor karena kualitasnya bikin kamu pede pakai tiap hari.",
-    material: "100% cotton combed 240gsm. Heavyweight, dropped shoulder. Warna putih solid, anti-transparan walau bahannya tebal.",
+    material: "100% cotton combed 240gsm. Boxy fit, dropped shoulder. Putih solid, anti-transparan walau tebal.",
   },
+
+  // ── HEAVYWEIGHT · boxy tee sablon ────────────────────────────
   {
     name: "CORRUPT Graphic Tee / Black",
     slug: "corrupt-graphic-tee-black",
     price: 315_000,
     comparePrice: 385_000,
-    categoryId: "cat-tshirt",
     collectionId: "col-heavyweight",
-    sizes: ["S", "M", "L", "XL"],
+    sizes: TEE_SIZES,
     tags: ["new", "sale", "graphic", "heavyweight"],
     isFeatured: true,
-    images: pair("teeprint-black", "tee-black"),
+    images: pair(36942017, 36942018),
     desc: "Boxy oversized dengan premium screen print yang nggak retak setengah mati setelah cuci ketiga. Tinta plastisol tebal, sablon rapi, badan 240gsm. Buat yang mau statement tapi tetap clean. Stok grafis ini terbatas.",
-    material: "100% cotton combed 240gsm. Sablon plastisol premium, high-density. Boxy fit, dropped shoulder.",
+    material: "100% cotton combed 240gsm. Sablon plastisol premium high-density. Boxy fit, dropped shoulder.",
   },
   {
-    name: "FRAGMENT Washed Tee / Black",
-    slug: "fragment-washed-tee-black",
+    name: "FRAGMENT Print Tee / Black",
+    slug: "fragment-print-tee-black",
     price: 335_000,
-    categoryId: "cat-tshirt",
     collectionId: "col-heavyweight",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "washed", "heavyweight"],
-    images: pair("teewashed-black", "fabric-black"),
-    desc: "Enzyme washed sampai dapet tekstur vintage yang susah dipalsuin. Hitamnya udah faded dari awal, jadi makin lama makin punya karakter. Boxy, berat, dan kelihatan kayak udah kamu pakai bertahun-tahun. Padahal baru.",
-    material: "100% cotton combed 240gsm, enzyme wash. Efek faded vintage, tekstur lembut. Tiap potong sedikit beda — itu memang maksudnya.",
+    sizes: TEE_SIZES,
+    tags: ["new", "graphic", "heavyweight"],
+    images: pair(36942018, 36942017),
+    desc: "Sablon teks bold yang gede di dada, tipe yang langsung kebaca dari jauh. Boxy, berat, dan kelihatan kayak udah kamu pakai bertahun-tahun. Buat yang suka grafis tapi anti norak.",
+    material: "100% cotton combed 240gsm. Sablon plastisol high-density. Boxy oversized fit.",
   },
-
-  // ── LONGSLEEVE ───────────────────────────────────────────────
   {
-    name: "SPECTER Longsleeve / Black",
-    slug: "specter-longsleeve-black",
-    price: 335_000,
-    categoryId: "cat-longsleeve",
-    collectionId: "col-essentials",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "essentials", "cotton"],
-    images: pair("longsleeve-black", "fabric-black"),
-    desc: "Longsleeve boxy dengan dropped shoulder dan ribbed cuff yang nyangkut pas di pergelangan. Dipakai sendiri oke, dijadiin layering juga jadi. Bahan midweight yang nggak gerah tapi tetap nahan bentuk. Simpel, tapi niat.",
-    material: "Cotton combed 220gsm. Dropped shoulder, ribbed cuff di pergelangan. Potongan boxy, panjang badan pas buat di-layer.",
-  },
-
-  // ── HOODIES ──────────────────────────────────────────────────
-  {
-    name: "OBSIDIAN Heavyweight Hoodie / Black",
-    slug: "obsidian-heavyweight-hoodie-black",
-    price: 585_000,
-    comparePrice: 685_000,
-    categoryId: "cat-hoodie",
+    name: "STATIC Graphic Tee / White",
+    slug: "static-graphic-tee-white",
+    price: 325_000,
     collectionId: "col-heavyweight",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    tags: ["sale", "heavyweight", "fleece"],
-    isFeatured: true,
-    images: pair("hoodie-black", "fabric-black"),
-    desc: "420gsm. Ini bukan hoodie tipis yang langsung melar. Berat, hangat, dengan kangaroo pocket yang dalem dan hood double-layer yang berdiri sendiri. Oversized fit. Begitu kamu pakai, kamu ngerti kenapa harganya segini. Untuk yang mau terasa ada di badannya.",
-    material: "Fleece cotton 420gsm, brushed back. Kangaroo pocket, hood dua lapis, ribbing tebal di cuff dan pinggang. Oversized fit.",
+    sizes: TEE_SIZES,
+    tags: ["new", "graphic", "heavyweight"],
+    images: pair(36908588, 20736690),
+    desc: "Versi putih dari seri sablon kami. Kontras teks hitam di bahan putih bersih, boxy oversized yang jatuh berat. Statement tanpa banyak omong. Cocok buat yang berani pakai putih.",
+    material: "100% cotton combed 240gsm. Sablon plastisol. Boxy fit, putih solid.",
   },
   {
-    name: "VOID Zip Hoodie / Black",
-    slug: "void-zip-hoodie-black",
-    price: 545_000,
-    categoryId: "cat-hoodie",
+    name: "RIOT Boxy Tee / Black",
+    slug: "riot-boxy-tee-black",
+    price: 345_000,
     collectionId: "col-heavyweight",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "heavyweight", "fleece"],
+    sizes: TEE_SIZES,
+    tags: ["new", "boxy", "heavyweight"],
     isFeatured: true,
-    images: pair("ziphoodie-black", "hoodie-black"),
-    desc: "Full-zip 380gsm yang dibikin buat layering. Resleting YKH yang halus, badan yang cukup berat buat berdiri sendiri tapi nggak bikin gerah. Buka-tutup gampang, dipakai di atas tee atau di bawah jaket sama enaknya. Piece serbaguna yang bakal sering kamu pakai.",
-    material: "Fleece cotton 380gsm, brushed back. Full-zip metal, hood double-layer, ribbing di cuff & hem. Fit sedikit lebih ramping dari OBSIDIAN.",
-  },
-
-  // ── CELANA SKENA / PANTS ─────────────────────────────────────
-  {
-    name: "GOMBRANG Wide Pants / Black",
-    slug: "gombrang-wide-pants-black",
-    price: 485_000,
-    categoryId: "cat-pants",
-    collectionId: "col-utility",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "utility", "wide"],
-    isFeatured: true,
-    images: pair("widepants-black", "fabric-black"),
-    desc: "Gombrang beneran. Wide leg yang loose dari paha sampai ujung, siluet skena yang nggak mengekang gerak. Pinggang elastis plus drawstring, bahan twill yang jatuh berat. Buat yang capek sama celana ketat dan mau bebas.",
-    material: "Cotton twill 280gsm. Wide leg, pinggang elastis + drawstring, saku samping dalam. Jatuh berat, nggak ngembang.",
-  },
-  {
-    name: "BAGGY Cargo Pants / Black",
-    slug: "baggy-cargo-pants-black",
-    price: 525_000,
-    categoryId: "cat-pants",
-    collectionId: "col-utility",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "utility", "cargo"],
-    images: pair("cargo-black", "widepants-black"),
-    desc: "Baggy cargo dengan 6 kantong yang beneran muat barang, bukan cuma hiasan. Terinspirasi skate dan skena, potongannya longgar tapi tetap rapi. Twill tebal yang tahan banting. Fungsional tanpa norak.",
-    material: "Cotton twill 300gsm. 6 kantong (2 samping cargo dengan flap + 2 depan + 2 belakang). Baggy fit, hem lebar.",
-  },
-  {
-    name: "SKENA Jogger Pants / Black",
-    slug: "skena-jogger-pants-black",
-    price: 445_000,
-    categoryId: "cat-pants",
-    collectionId: "col-utility",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["utility", "jogger", "fleece"],
-    images: pair("jogger-black", "fabric-black"),
-    desc: "Atasnya oversized, bawahnya tapered, ditutup ribbed cuff yang ngegantung pas. Siluet jogger yang lagi jadi seragam anak skena. Bahan fleece yang adem buat sehari-hari, gampang dipaduin sama apa aja. Nyaman tanpa terlihat malas.",
-    material: "Fleece cotton 320gsm. Tapered fit, ribbed cuff, pinggang elastis + drawstring. Saku samping dalam.",
-  },
-
-  // ── SHORTS ───────────────────────────────────────────────────
-  {
-    name: "BASIC Loose Shorts / Black",
-    slug: "basic-loose-shorts-black",
-    price: 245_000,
-    categoryId: "cat-shorts",
-    collectionId: "col-essentials",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["essentials", "shorts"],
-    images: pair("shorts-black", "fabric-black"),
-    desc: "Loose fit selutut dengan drawstring, dasar yang kamu butuh buat hari panas. Nggak neko-neko, nggak ketat, bahan yang adem. Dipakai di rumah, ke warung, atau buat olahraga sama enaknya. Murah meriah tapi nggak murahan.",
-    material: "Cotton terry 260gsm. Loose fit, panjang selutut, pinggang elastis + drawstring, saku samping.",
-  },
-  {
-    name: "WASHED Skate Shorts / Black",
-    slug: "washed-skate-shorts-black",
-    price: 275_000,
-    comparePrice: 325_000,
-    categoryId: "cat-shorts",
-    sizes: ["S", "M", "L", "XL"],
-    tags: ["new", "sale", "washed", "shorts"],
-    images: pair("shortswashed-black", "fabric-black"),
-    desc: "Washed black dengan efek faded yang skate banget. Lebih panjang dan loose dari basic, dibikin buat gerak. Hitamnya udah sedikit pudar dari awal jadi makin dipakai makin keren. Buat yang main board atau cuma pengin tampil kayak main board.",
-    material: "Cotton twill 280gsm, garment wash. Loose skate fit, efek faded, drawstring. Tiap potong punya pudaran yang sedikit beda.",
+    images: pair(28338020, 28758241),
+    desc: "Boxy tee 240gsm yang dibikin buat dipaduin sama celana gombrang skena. Satu look, semua benar. Hitam pekat, oversized, jatuh berat. Inilah seragam anak skena: kaos boxy, celana lebar, selesai.",
+    material: "100% cotton combed 240gsm. Boxy oversized fit, dropped shoulder. Heavyweight, jatuh berat.",
   },
 ];
 
@@ -256,8 +181,8 @@ export const PRODUCTS: Product[] = SEEDS.map((s, idx) => {
     price: s.price,
     comparePrice: s.comparePrice ?? null,
     images: s.images,
-    categoryId: s.categoryId,
-    category: CATEGORIES.find((c) => c.id === s.categoryId),
+    categoryId: "cat-tshirt",
+    category: CATEGORIES[0],
     collectionId: s.collectionId ?? null,
     collection: COLLECTIONS.find((c) => c.id === s.collectionId) ?? null,
     variants: variants(id, s.sizes, s.soldOut ?? false),

@@ -169,7 +169,7 @@ export function SearchOverlay() {
                                   alt={p.name}
                                   fill
                                   sizes="64px"
-                                  className="object-cover"
+                                  className="object-cover grayscale"
                                 />
                               </div>
                               <div className="min-w-0 flex-1">

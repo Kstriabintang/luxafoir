@@ -111,7 +111,7 @@ export function NewsletterPopup() {
                 alt="LUXAFOIR"
                 fill
                 sizes="50vw"
-                className="object-cover"
+                className="object-cover grayscale"
               />
             </div>
 

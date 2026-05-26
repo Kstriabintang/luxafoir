@@ -34,7 +34,7 @@ export function AboutContent() {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover grayscale"
         />
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative z-10 mx-auto w-full max-w-site px-site pb-20">
