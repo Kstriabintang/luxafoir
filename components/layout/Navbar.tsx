@@ -105,16 +105,24 @@ export function Navbar() {
         scrolled && !onDark && "shadow-[0_1px_0_rgba(0,0,0,0.04)]"
       )}
     >
-      <nav className="mx-auto grid h-[var(--nav-h-mobile)] max-w-site grid-cols-[1fr_auto_1fr] items-center px-site md:h-[var(--nav-h)]">
-        {/* LEFT — hamburger (mobile) / logo (desktop) */}
+      {/* Mobile: logo left, controls right (flex). Desktop: 3-col grid. */}
+      <nav className="mx-auto flex h-[var(--nav-h-mobile)] max-w-site items-center justify-between px-site md:grid md:h-[var(--nav-h)] md:grid-cols-[1fr_auto_1fr]">
+        {/* LEFT — logo (mobile lockup / desktop wordmark) */}
         <div className="flex items-center justify-start">
-          <button
-            onClick={toggleMobileMenu}
-            aria-label="Open menu"
-            className={cn("-ml-2 p-2 transition-colors md:hidden", iconCls)}
-          >
-            <Menu className="size-5" strokeWidth={1.5} />
-          </button>
+          {/* Mobile: brand lockup at 32px. Black artwork, so invert to white over the hero. */}
+          <Link href="/" aria-label="LUXAFOIR — Home" className="md:hidden">
+            <Image
+              src="/logo.png"
+              alt="LUXAFOIR"
+              width={184}
+              height={217}
+              priority
+              className={cn(
+                "h-8 w-auto transition-[filter] duration-500",
+                onDark && "brightness-0 invert"
+              )}
+            />
+          </Link>
           <Link
             href="/"
             className={cn(
@@ -126,44 +134,35 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* CENTER — nav (desktop) / logo (mobile) */}
-        <div className="flex items-center justify-center">
-          {/* Mobile: brand lockup. Black artwork, so invert to white over the hero. */}
-          <Link href="/" aria-label="LUXAFOIR — Home" className="md:hidden">
-            <Image
-              src="/logo.png"
-              alt="LUXAFOIR"
-              width={184}
-              height={217}
-              priority
-              className={cn(
-                "h-10 w-auto transition-[filter] duration-500",
-                onDark && "brightness-0 invert"
-              )}
-            />
-          </Link>
-          <ul className="hidden items-center gap-9 md:flex">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  data-active={isActive(link.href)}
-                  className={cn(
-                    "link-underline text-label uppercase tracking-label transition-colors data-[active=true]:text-gold",
-                    onDark
-                      ? "text-white/85 hover:text-white"
-                      : "text-ivory/90 hover:text-ivory"
-                  )}
-                >
-                  {t(link.tKey)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* CENTER — primary nav (desktop only) */}
+        <ul className="hidden items-center justify-center gap-9 md:flex">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                data-active={isActive(link.href)}
+                className={cn(
+                  "link-underline text-label uppercase tracking-label transition-colors data-[active=true]:text-gold",
+                  onDark
+                    ? "text-white/85 hover:text-white"
+                    : "text-ivory/90 hover:text-ivory"
+                )}
+              >
+                {t(link.tKey)}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        {/* RIGHT — icons (roomier spacing on mobile) */}
-        <div className="flex items-center justify-end gap-2 md:gap-3">
+        {/* RIGHT — controls. Mobile order: hamburger · search · cart · ID/EN. */}
+        <div className="flex items-center justify-end gap-1.5 md:gap-3">
+          <button
+            onClick={toggleMobileMenu}
+            aria-label="Open menu"
+            className={cn("p-2 transition-colors md:hidden", iconCls)}
+          >
+            <Menu className="size-5" strokeWidth={1.5} />
+          </button>
           <button
             onClick={openSearch}
             aria-label="Search"

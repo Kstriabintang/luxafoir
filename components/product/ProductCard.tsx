@@ -105,22 +105,22 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
         </div>
       </Link>
 
-      {/* Meta — name wraps to 2 lines; price sits below it */}
-      <div className="mt-4 flex flex-col gap-1.5">
+      {/* Meta — name wraps to 2 lines; price sits below it. Compact on mobile. */}
+      <div className="mt-2.5 flex flex-col gap-1 md:mt-4 md:gap-1.5">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="line-clamp-2 text-[15px] uppercase leading-snug tracking-label text-ivory transition-colors group-hover:text-gold">
+          <h3 className="line-clamp-2 text-[13px] uppercase leading-snug tracking-label text-ivory transition-colors group-hover:text-gold md:text-[15px]">
             {product.name}
           </h3>
         </Link>
         {product.category && (
           <p className="text-caption text-smoke">{product.category.name}</p>
         )}
-        <div className="mt-0.5 flex items-baseline gap-2">
-          <span className={cn("font-mono text-[15px]", discount ? "text-gold" : "text-ivory")}>
+        <div className="flex items-baseline gap-2 md:mt-0.5">
+          <span className={cn("font-mono text-[13px] md:text-[15px]", discount ? "text-gold" : "text-ivory")}>
             {formatIDR(product.price)}
           </span>
           {product.comparePrice && (
-            <span className="font-mono text-[13px] text-smoke line-through">
+            <span className="font-mono text-[11px] text-smoke line-through md:text-[13px]">
               {formatIDR(product.comparePrice)}
             </span>
           )}
