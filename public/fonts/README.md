@@ -1,8 +1,22 @@
-# Brand font — Obra Letra
+# LUXAFOIR type system
 
-The whole site is wired to use **Obra Letra** (see the `@font-face` block in
-`app/globals.css` and `fontFamily` in `tailwind.config.ts`). Until the font
-files are dropped here, the site falls back to a serif (Georgia → serif).
+Three self-hosted families (see the `@font-face` blocks in `app/globals.css`
+and `fontFamily` in `tailwind.config.ts`). Premium editorial-meets-street pairing:
+
+| Role          | Family        | Tailwind class | Used for                                     |
+| ------------- | ------------- | -------------- | -------------------------------------------- |
+| Display       | Obra Letra    | `font-display` | hero, headings (h1–h6), product names        |
+| Body / UI     | Space Grotesk | `font-body`    | paragraphs, buttons, nav, eyebrows (default) |
+| Mono / Labels | Space Mono    | `font-mono`    | prices, sizes, quantities, badges, SKU       |
+
+Space Grotesk + Space Mono ship in this folder already (`SpaceGrotesk-latin.woff2`,
+`SpaceMono-Regular.woff2`, `SpaceMono-Bold.woff2`) — both SIL OFL, free for
+commercial use, downloaded from Google Fonts. No action needed for those.
+
+# Brand display font — Obra Letra
+
+Obra Letra is the **display** family only. Until its files are dropped here,
+headings fall back to a serif (Georgia → serif).
 
 ## Drop the font files here
 

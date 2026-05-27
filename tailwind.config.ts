@@ -65,11 +65,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // Obra Letra everywhere (display, body, mono, sans) — serif fallback.
+        // Type system: Obra Letra (display serif) + Space Grotesk (body/UI grotesque)
+        // + Space Mono (technical labels). Premium editorial-meets-street pairing.
         display: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
-        body: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
-        mono: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
-        sans: ['"Obra Letra"', "Georgia", '"Times New Roman"', "serif"],
+        body: ['"Space Grotesk"', "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        sans: ['"Space Grotesk"', "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        mono: ['"Space Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       fontSize: {
         hero: ["clamp(64px, 10vw, 120px)", { lineHeight: "0.95", fontWeight: "300" }],
