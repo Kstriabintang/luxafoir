@@ -12,70 +12,34 @@ import { useUIStore } from "@/stores/ui.store";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useTranslation } from "@/components/i18n/LanguageProvider";
-import { type Lang } from "@/lib/i18n";
 
-const LANG_FLAG: Record<Lang, string> = { id: "🇮🇩", en: "🇬🇧" };
-const LANG_NAME: Record<Lang, string> = { id: "Indonesia", en: "English" };
-
-function LangToggle() {
+/** Clean "ID / EN" text toggle (no flags). Inverts to white over a dark hero. */
+function LangToggle({ onDark }: { onDark?: boolean }) {
   const { lang, setLang } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const active = onDark ? "text-white" : "text-obsidian";
+  const inactive = onDark ? "text-white/60 hover:text-white" : "text-smoke hover:text-obsidian";
 
   return (
-    <div className="ml-1">
-      {/* Desktop — ID | EN text */}
-      <div className="hidden items-center gap-1 text-[11px] uppercase tracking-[0.1em] md:flex">
-        <button
-          onClick={() => setLang("id")}
-          aria-label="Bahasa Indonesia"
-          className={cn("transition-colors", lang === "id" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
-        >
-          ID
-        </button>
-        <span className="text-ash">|</span>
-        <button
-          onClick={() => setLang("en")}
-          aria-label="English"
-          className={cn("transition-colors", lang === "en" ? "text-obsidian" : "text-smoke hover:text-obsidian")}
-        >
-          EN
-        </button>
-      </div>
-
-      {/* Mobile — flag button + dropdown (easier to tap) */}
-      <div className="relative md:hidden">
-        <button
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Ganti bahasa / Change language"
-          aria-expanded={open}
-          className="flex items-center p-2 text-xl leading-none"
-        >
-          <span aria-hidden>{LANG_FLAG[lang]}</span>
-        </button>
-        {open && (
-          <>
-            <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden />
-            <div className="absolute right-0 top-full z-50 mt-1 min-w-[150px] overflow-hidden border border-ash bg-white shadow-[0_12px_30px_rgba(0,0,0,0.12)]">
-              {(["id", "en"] as Lang[]).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => {
-                    setLang(l);
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm transition-colors",
-                    lang === l ? "text-gold" : "text-ivory hover:bg-void"
-                  )}
-                >
-                  <span className="text-lg leading-none" aria-hidden>{LANG_FLAG[l]}</span>
-                  <span>{LANG_NAME[l]}</span>
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+    <div className="ml-1 flex items-center gap-1.5 text-[12px] uppercase tracking-[0.12em] md:text-[11px]">
+      <button
+        onClick={() => setLang("id")}
+        aria-label="Bahasa Indonesia"
+        aria-pressed={lang === "id"}
+        className={cn("py-2 transition-colors", lang === "id" ? active : inactive)}
+      >
+        ID
+      </button>
+      <span aria-hidden className={onDark ? "text-white/40" : "text-ash"}>
+        /
+      </span>
+      <button
+        onClick={() => setLang("en")}
+        aria-label="English"
+        aria-pressed={lang === "en"}
+        className={cn("py-2 transition-colors", lang === "en" ? active : inactive)}
+      >
+        EN
+      </button>
     </div>
   );
 }
@@ -112,7 +76,7 @@ export function Navbar() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 30);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -121,11 +85,24 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  // Only the homepage has a full-bleed dark hero behind the navbar. While the
+  // user is parked over it (scroll ≈ 0), the header floats transparent with
+  // white content; once they scroll it settles into the solid white bar.
+  const isHome = pathname === "/";
+  const onDark = isHome && !scrolled;
+
+  const iconCls = onDark
+    ? "text-white hover:text-white/70"
+    : "text-ivory hover:text-gold";
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full border-b border-[#E5E2DC] bg-white/90 backdrop-blur-xl transition-all duration-500 ease-out-expo",
-        scrolled && "shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+        "sticky top-0 z-40 w-full transition-all duration-500 ease-out-expo",
+        onDark
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-[#E5E2DC] bg-white/90 backdrop-blur-xl",
+        scrolled && !onDark && "shadow-[0_1px_0_rgba(0,0,0,0.04)]"
       )}
     >
       <nav className="mx-auto grid h-[var(--nav-h-mobile)] max-w-site grid-cols-[1fr_auto_1fr] items-center px-site md:h-[var(--nav-h)]">
@@ -134,13 +111,16 @@ export function Navbar() {
           <button
             onClick={toggleMobileMenu}
             aria-label="Open menu"
-            className="-ml-2 p-2 text-ivory transition-colors hover:text-gold md:hidden"
+            className={cn("-ml-2 p-2 transition-colors md:hidden", iconCls)}
           >
             <Menu className="size-5" strokeWidth={1.5} />
           </button>
           <Link
             href="/"
-            className="hidden font-display text-[28px] font-bold italic leading-none tracking-tight text-ivory transition-colors hover:text-gold md:block"
+            className={cn(
+              "hidden font-display text-[28px] font-bold italic leading-none tracking-tight transition-colors md:block",
+              onDark ? "text-white hover:text-white/80" : "text-ivory hover:text-gold"
+            )}
           >
             LUXAFOIR
           </Link>
@@ -148,15 +128,18 @@ export function Navbar() {
 
         {/* CENTER — nav (desktop) / logo (mobile) */}
         <div className="flex items-center justify-center">
-          {/* Mobile: brand mark (the long text crowds the right-side icons) */}
+          {/* Mobile: brand lockup. Black artwork, so invert to white over the hero. */}
           <Link href="/" aria-label="LUXAFOIR — Home" className="md:hidden">
             <Image
-              src="/icon.png"
+              src="/logo.png"
               alt="LUXAFOIR"
-              width={36}
-              height={36}
+              width={184}
+              height={217}
               priority
-              className="h-9 w-auto"
+              className={cn(
+                "h-10 w-auto transition-[filter] duration-500",
+                onDark && "brightness-0 invert"
+              )}
             />
           </Link>
           <ul className="hidden items-center gap-9 md:flex">
@@ -165,7 +148,12 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   data-active={isActive(link.href)}
-                  className="link-underline text-label uppercase tracking-label text-ivory/90 transition-colors hover:text-ivory data-[active=true]:text-gold"
+                  className={cn(
+                    "link-underline text-label uppercase tracking-label transition-colors data-[active=true]:text-gold",
+                    onDark
+                      ? "text-white/85 hover:text-white"
+                      : "text-ivory/90 hover:text-ivory"
+                  )}
                 >
                   {t(link.tKey)}
                 </Link>
@@ -174,19 +162,19 @@ export function Navbar() {
           </ul>
         </div>
 
-        {/* RIGHT — icons */}
-        <div className="flex items-center justify-end gap-1 md:gap-3">
+        {/* RIGHT — icons (roomier spacing on mobile) */}
+        <div className="flex items-center justify-end gap-2 md:gap-3">
           <button
             onClick={openSearch}
             aria-label="Search"
-            className="p-2 text-ivory transition-colors hover:text-gold"
+            className={cn("p-2 transition-colors", iconCls)}
           >
             <Search className="size-5" strokeWidth={1.5} />
           </button>
           <Link
             href="/account/wishlist"
             aria-label="Wishlist"
-            className="relative hidden p-2 text-ivory transition-colors hover:text-gold md:block"
+            className={cn("relative hidden p-2 transition-colors md:block", iconCls)}
           >
             <Heart className="size-5" strokeWidth={1.5} />
             <CountBadge count={wishlistCount} />
@@ -194,12 +182,12 @@ export function Navbar() {
           <button
             onClick={openCart}
             aria-label="Open cart"
-            className="relative p-2 text-ivory transition-colors hover:text-gold"
+            className={cn("relative p-2 transition-colors", iconCls)}
           >
             <ShoppingBag className="size-5" strokeWidth={1.5} />
             <CountBadge count={summary.itemCount} />
           </button>
-          <LangToggle />
+          <LangToggle onDark={onDark} />
         </div>
       </nav>
     </header>
